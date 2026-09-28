@@ -1,0 +1,32 @@
+.buttonDefault {
+    width: 20rem;
+    padding: 1rem;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.primaryButton {
+    border: 1.5px solid var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+}
+
+.subButton {
+    border: 1.5px solid var(--primary-color);
+    background: var(--sub-color);
+    color: var(--primary-color);
+}
+
+.cancelButton {
+    border: 1.5px solid #BDBDBD;
+    color: #616161;
+    background: white;
+}
+
+.inactiveButton {
+    border: 1.5px solid #E0E0E0;
+    background: #E0E0E0;
+    color: #616161;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}

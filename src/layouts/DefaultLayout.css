@@ -1,0 +1,48 @@
+.defaultLayout {
+    display: flex;
+    flex-direction: column;
+    --padding-h: 5rem;
+    min-height: 100vh;
+}
+
+.defaultTopBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem var(--padding-h);
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.defaultTopBar > img {
+    height: 3rem;
+}
+
+.personalArea {
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    color: #616161;
+}
+
+.defaultContent > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 2.5rem var(--padding-h);
+}
+
+.defaultContent > div:first-child > h1, .defaultContent > div:first-child > div:first-child h1 {
+    font-size: 2rem;
+}
+
+.bottomBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem var(--padding-h);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -4px 24px 0px #00000012;
+    gap: 0.8rem;
+}
