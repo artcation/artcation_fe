@@ -1,0 +1,106 @@
+.registerHeader {
+    align-items: flex-start;
+}
+
+.registerHeader p {
+    color: #616161;
+}
+
+.registerInputs {
+    gap: 0;
+}
+
+.registerInputs input {
+    border: 1px solid #BDBDBD;
+    background: white;
+    width: 100%;
+    color: #424242;
+}
+
+.registerInputs input::placeholder {
+    color: #BDBDBD;
+}
+
+.registerInputs label {
+    font-size: 0.9rem;
+}
+
+.registerInputs label span {
+    color: var(--primary-color);
+}
+
+.registerInputs > div {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.registerInputs > div > label {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    align-self: center;
+}
+
+.registerInputs > div > input, .registerInputs > div > div {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    width: 100%;
+}
+
+.registerInputs > div > div {
+    display: flex;
+    gap: 0.8rem;
+    position: relative;
+}
+
+.registerInputs > div > div > button {
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 0.5rem;
+    width: 40%;
+}
+
+.registerInputs .visibilityToggle {
+    position: absolute;
+    right: 1rem;
+    align-self: center;
+    width: 1rem;
+    background: url('../../assets/icon_visible.png') center / contain no-repeat;
+}
+
+.registerInputs .pwInput {
+    padding-right: 2.8rem;
+}
+
+.registerInputs > div > p {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    font-size: 0.7rem;
+    padding: 0.5rem 0;
+}
+
+.registerFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.registerFooter > div {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    align-items: center;
+}
+
+.registerFooter input {
+    appearance: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    background: url('../../assets/icon_unchecked.png') center / contain no-repeat;
+}
+
+.registerFooter input:checked {
+  background-image: url("../../assets/icon_checked.png");
+}

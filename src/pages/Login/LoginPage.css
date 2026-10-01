@@ -1,0 +1,47 @@
+.loginHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.loginHeader h1 {
+    font-size: 1.7rem;
+}
+
+.loginHeader p {
+    font-size: 0.9rem;
+}
+
+.loginInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.loginInputs input {
+    background: #F8F8F8;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 1rem;
+    color: #BDBDBD;
+}
+
+.loginInputs input::placeholder {
+    color: #BDBDBD;
+}
+
+.loginHelp {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.loginHelp > a, .loginHelp > span {
+    color: #9E9E9E;
+}
+
+.loginHelp > a:first-child {
+    color: var(--primary-color);
+    text-decoration: underline;
+}

@@ -1,0 +1,14 @@
+.loginButtonDefault {
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    color: white;
+}
+
+.loginButtonActive {
+    background: var(--primary-color);
+}
+
+.loginButtonInactive {
+    background: #BDBDBD;
+}

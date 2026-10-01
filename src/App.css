@@ -13,8 +13,8 @@
 }
 
 :root {
-  --primary-color: #283DF5;
-  --sub-color: #E3EEFF;
+  --primary-color: #722EF4;
+  --sub-color: #DDD8F6;
 }
 
 * {
@@ -23,4 +23,13 @@
   box-sizing: border-box;
   font-family: 'Pretendard';
   font-weight: 600;
+}
+
+html, body, #root {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
