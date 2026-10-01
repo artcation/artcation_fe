@@ -30,6 +30,7 @@
     flex-direction: column;
     gap: 2.5rem;
     padding: 2.5rem var(--padding-h);
+    margin-bottom: 6rem;
 }
 
 .defaultContent > div:first-child > h1, .defaultContent > div:first-child > div:first-child h1 {
@@ -46,4 +47,5 @@
     width: 100%;
     box-shadow: 0px -4px 24px 0px #00000012;
     gap: 0.8rem;
+    background-color: white;
 }
