@@ -8,6 +8,7 @@ import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Login/RegisterPage'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
+import TermsPage from './pages/Login/TermsPage'
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         <Route path='/' element={<MainPage />} />
         <Route element={<LoginLayout />}>
           <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/signup/terms' element={<TermsPage />} />
+          <Route path='/signup/create' element={<RegisterPage />} />
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path='/example' element={<ExamplePage />} />

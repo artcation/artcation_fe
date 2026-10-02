@@ -1,10 +1,13 @@
-import { Outlet } from 'react-router';
 import logo from '../assets/logo.png';
 import './LoginLayout.css';
-import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import { useNavigate, Outlet } from 'react-router';
+import { SignupContext } from '../context/SignupContext'
+
 
 export default function LoginLayout() {
     const navigate = useNavigate();
+    const [checks, setChecks] = useState({ageCheck: false, termsCheck: false, privacyCheck: false, marketingCheck: false});
 
     function handleLogo() {
         navigate('/');
@@ -17,7 +20,9 @@ export default function LoginLayout() {
             </div>
             <div>
                 <div className='loginContainer'>
-                    <Outlet />
+                    <SignupContext value={{checks, setChecks}}>
+                        <Outlet />
+                    </SignupContext>
                 </div>
             </div>
         </div>

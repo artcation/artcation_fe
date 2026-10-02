@@ -8,6 +8,7 @@ export default function MainPage() {
             </div>
             <Link to="/artist">/artist</Link>
             <Link to="/host">/host</Link>
+            <Link to="/login">/login</Link>
         </div>
     )
 }
