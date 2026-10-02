@@ -69,13 +69,20 @@
 .myPostingsList > div:first-child {
     display: flex;
     justify-content: flex-end;
-    gap: 1rem;
 }
 
-.myPostingsList > div:first-child button {
-    color: #757575;
+.myPostingsList > div:first-child select {
+    appearance: none;
     border: none;
-    background-color: transparent;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23616161' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") right center no-repeat;
+    padding: 0.3rem 1.9375rem 0.3rem 0;
+    color: #616161;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.myPostingsList > div:first-child option {
+    color: #616161;
 }
 
 .myPostingsList table {
@@ -137,8 +144,14 @@
     grid-row: 1 / 2;
     text-align: left;
     font-size: 1.125rem;
-    line-height: 2.11;
+    line-height: 1.4;
+    padding: 0.4rem 0;
     color: black;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    word-break: keep-all;
 }
 
 .postingName > div:nth-child(3) {

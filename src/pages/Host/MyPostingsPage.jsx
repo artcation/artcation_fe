@@ -51,9 +51,11 @@ export default function MyPostingsPage() {
 
                 <div className="myPostingsList">
                     <div>
-                        <button>최신 지원 순</button>
-                        <button>공연 일시 순</button>
-                        <button>마감 임박 순</button>
+                        <select>
+                            <option>최신 지원 순</option>
+                            <option>공연 일시 순</option>
+                            <option>마감 임박 순</option>
+                        </select>
                     </div>
                     <table>
                         <thead>
@@ -71,7 +73,7 @@ export default function MyPostingsPage() {
                                         <div className="postingName">
                                             <StatusIcon text={STATUS_LABEL[posting.status]} />
                                             <div>
-                                                <Link to={hostPostingDetailPath(posting.performanceId)}>{posting.title}</Link>
+                                                <Link to={hostPostingDetailPath(posting.performanceId)} title={posting.title}>{posting.title}</Link>
                                             </div>
                                             <div>등록일: {formatDate(posting.createdAt)}</div>
                                         </div>
