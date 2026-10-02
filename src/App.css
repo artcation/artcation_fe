@@ -21,7 +21,8 @@
 
 :root {
   --primary-color: #722EF4;
-  --sub-color: #DDD8F6;
+  --sub-color: #F1EFFD;
+  --error-color: #EC4E4E;
 }
 
 * {
