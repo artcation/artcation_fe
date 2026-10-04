@@ -48,11 +48,7 @@
 }
 
 .myPostingsHeader > a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10.125rem;
-    height: 2.5rem;
+    padding: 0.75rem 2rem;
     border-radius: 6px;
     background: var(--primary-color);
     color: white;
