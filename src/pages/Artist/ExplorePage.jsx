@@ -1,3 +1,4 @@
+import StatusIcon from '../../components/StatusIcon'
 import './ExplorePage.css'
 
 export default function ExplorePage() {
@@ -56,7 +57,7 @@ export default function ExplorePage() {
                                 </td>
                                 <td>
                                     <div className='resultStatus'>
-                                        <div>모집중</div>
+                                        <StatusIcon text='모집중' />
                                         <div>00 요양원 가을 위로 공연</div>
                                         <div>대전 유성구 · 00 요양원</div>
                                     </div>

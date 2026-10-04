@@ -1,0 +1,11 @@
+.timer {
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
