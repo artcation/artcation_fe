@@ -3,7 +3,7 @@ import './ExplorePage.css'
 export default function ExplorePage() {
     return (
         <>
-            <div>
+            <div className='explorePage'>
                 <h1>공연 공고</h1>
                 <div className='searchContainer'>
                     <div>
@@ -31,8 +31,10 @@ export default function ExplorePage() {
                 </div>
                 <div className='exploreResults'>
                     <div>
-                        <button>마감 임박 순</button>
-                        <button>공연 일시 순</button>
+                        <select>
+                            <option value="">공연 일시 순</option>
+                            <option value="">마감 임박 순</option>
+                        </select>
                     </div>
                     <table>
                         <thead>
