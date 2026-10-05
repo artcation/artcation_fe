@@ -1,3 +1,5 @@
+import { useState } from "react";
+import axiosInstance from "../../../api/axiosInstance";
 import BottomButton from "../../components/bottomButton";
 import './PostingPage.css';
 import { useState } from "react";
