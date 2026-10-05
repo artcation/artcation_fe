@@ -9,4 +9,6 @@
     padding: 0.5rem 1rem;
     flex: none;
     width: fit-content;
+    min-width: 5.5em;
+    justify-content: center;
 }

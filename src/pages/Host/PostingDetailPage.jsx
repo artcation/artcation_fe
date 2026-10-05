@@ -10,7 +10,7 @@ export default function PostingDetailPage() {
             <div>
                 <div className="postingDetailHeader">
                     <div>
-                        <StatusIcon text='모집중' />
+                        <StatusIcon text={MOCK_POSTING_DETAIL.status} />
                         <h1>{MOCK_POSTING_DETAIL.title}</h1>
                     </div>
                     <div>
