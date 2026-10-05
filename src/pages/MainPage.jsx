@@ -1,4 +1,5 @@
 import { Link } from "react-router"
+import { HOST_POSTINGS } from "../routes"
 
 export default function MainPage() {
     return (
@@ -8,6 +9,7 @@ export default function MainPage() {
             </div>
             <Link to="/artist">/artist</Link>
             <Link to="/host">/host</Link>
+            <Link to={HOST_POSTINGS}>{HOST_POSTINGS}</Link>
             <Link to="/login">/login</Link>
         </div>
     )
