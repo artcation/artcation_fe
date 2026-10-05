@@ -23,7 +23,7 @@ function App() {
           <Route path='/example' element={<ExamplePage />} />
           <Route path='/artist' />
           <Route path='/artist/explore' element={<ExplorePage />} />
-          <Route path='/artist/posting' element={<PostingPage />} />
+          <Route path='/artist/posting/:performanceId' element={<PostingPage />} />
           <Route path='/host' />
         </Route>
       </Routes>

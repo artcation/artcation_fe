@@ -1,7 +1,26 @@
 import BottomButton from "../../components/bottomButton";
 import './PostingPage.css';
+import { useState } from "react";
+import { useParams } from "react-router";
 
 export default function PostingPage() {
+    const [ postingInfo, setPostingInfo ] = useState('');
+    const { performanceId } = useParams();
+
+    async function handlePostingInfo() {
+        try {
+            const response = await axiosInstance.get(
+                `/performances/${performanceId}`
+            )
+            setPostingInfo(response.data.data);
+            console.log(response.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    handlePostingInfo();
+
     return (
         <>
             <div className="postingPage">
