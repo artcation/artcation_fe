@@ -91,7 +91,7 @@ export default function PostingPage() {
                 </div>
             </div>
             <div className="bottomBar">
-                <BottomButton text={`지원하기 (D-${postingInfo.daysUntilDeadline})`} type='primary' />
+                <BottomButton text={`지원하기 (D-${postingInfo?.daysUntilDeadline})`} type={'primary'} />
             </div>
         </>
     )
