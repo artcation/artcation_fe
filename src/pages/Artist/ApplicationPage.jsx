@@ -1,20 +1,31 @@
+import axiosInstance from "../../../api/axiosInstance";
 import BottomButton from "../../components/bottomButton";
 import './ApplicationPage.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 export default function ApplicationPage() {
     const [portfolio, setPortfolio] = useState('');
     const [request, setRequest] = useState('');
+    const [info, setInfo] = useState('');
     const { performanceId } = useParams();
 
     async function handleInfoGet() {
         try {
-            
+            const response = await axiosInstance.get(
+                `/performances/${performanceId}/brief`
+            )
+            setInfo(response.data.data);
+            console.log(response.data.data)
         } catch (error) {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        handleInfoGet();
+    }, [performanceId])
+
 
     return (
         <>
@@ -30,27 +41,19 @@ export default function ApplicationPage() {
                     <div className="postingPerformanceInfo">
                         <div>
                             <div>공연일시</div>
-                            <div>2026.10.22 (목) 14:00</div>
+                            <div>{info.performanceDate} ({new Date(info.performanceDate).toLocaleDateString('ko-KR', { weekday: 'short' })}) {info.startTime}</div>
                         </div>
                         <div>
-                            <div>모집 팀 수</div>
-                            <div>2팀</div>
-                        </div>
-                        <div>
-                            <div>주최</div>
-                            <div>00요양원</div>
+                            <div>장소명</div>
+                            <div>{info.placeName}</div>
                         </div>
                         <div>
                             <div>러닝타임</div>
-                            <div>40분</div>
+                            <div>{info.runningTime}분</div>
                         </div>
                         <div>
                             <div>장르</div>
-                            <div>클래식</div>
-                        </div>
-                        <div>
-                            <div>마감일</div>
-                            <div>2026-10-03</div>
+                            <div></div>
                         </div>
                     </div>
                 </div>
