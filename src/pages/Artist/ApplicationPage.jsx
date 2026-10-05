@@ -10,13 +10,19 @@ export default function ApplicationPage() {
     const [info, setInfo] = useState('');
     const { performanceId } = useParams();
 
+    const GENRES = {
+        'CLASSIC': '클래식',
+        'POPULAR': '대중음악',
+        'JAZZ': '재즈',
+        'KOREAN_TRADITIONAL': '국악'
+    }
+
     async function handleInfoGet() {
         try {
             const response = await axiosInstance.get(
                 `/performances/${performanceId}/brief`
             )
             setInfo(response.data.data);
-            console.log(response.data.data)
         } catch (error) {
             console.log(error);
         }
@@ -53,7 +59,7 @@ export default function ApplicationPage() {
                         </div>
                         <div>
                             <div>장르</div>
-                            <div></div>
+                            <div>{GENRES[info.genre]}</div>
                         </div>
                     </div>
                 </div>
