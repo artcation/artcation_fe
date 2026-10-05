@@ -1,10 +1,20 @@
 import BottomButton from "../../components/bottomButton";
 import './ApplicationPage.css';
 import { useState } from "react";
+import { useParams } from "react-router";
 
 export default function ApplicationPage() {
     const [portfolio, setPortfolio] = useState('');
     const [request, setRequest] = useState('');
+    const { performanceId } = useParams();
+
+    async function handleInfoGet() {
+        try {
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -19,16 +29,28 @@ export default function ApplicationPage() {
                     <h2>공연 정보</h2>
                     <div className="postingPerformanceInfo">
                         <div>
-                            공연일시
+                            <div>공연일시</div>
+                            <div>2026.10.22 (목) 14:00</div>
                         </div>
                         <div>
-                            장소명
+                            <div>모집 팀 수</div>
+                            <div>2팀</div>
                         </div>
                         <div>
-                            러닝타임
+                            <div>주최</div>
+                            <div>00요양원</div>
                         </div>
                         <div>
-                            장르
+                            <div>러닝타임</div>
+                            <div>40분</div>
+                        </div>
+                        <div>
+                            <div>장르</div>
+                            <div>클래식</div>
+                        </div>
+                        <div>
+                            <div>마감일</div>
+                            <div>2026-10-03</div>
                         </div>
                     </div>
                 </div>

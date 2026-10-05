@@ -25,7 +25,7 @@ function App() {
           <Route path='/artist' />
           <Route path='/artist/explore' element={<ExplorePage />} />
           <Route path='/artist/posting' element={<PostingPage />} />
-          <Route path='/artist/application' element={<ApplicationPage />} />
+          <Route path='/artist/application/:performanceId' element={<ApplicationPage />} />
           <Route path='/host' />
         </Route>
       </Routes>
