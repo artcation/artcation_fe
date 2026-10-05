@@ -2,15 +2,69 @@ import StatusIcon from '../../components/StatusIcon'
 import icon_activedropdown from '../../assets/icon_activedropdown.png'
 import './ExplorePage.css'
 import { useState, useRef, useEffect } from 'react'
+import axiosInstance from '../../../api/axiosInstance'
+import Pagination from '../../components/Pagination'
 
 export default function ExplorePage() {
-    const [filters, setFilters] = useState({ regions: [], dateFrom: null, genres: [] });
-    const [open, setOpen] = useState(null);
+    const [filters, setFilters] = useState({ regions: [], dateFrom: null, genres: [], orderBy: 'PERFORMANCE_DATE' });
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [open, setOpen] = useState('');
+    const [performances, setPerformances] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const menuRef = useRef(null);
     const dateRef = useRef(null);
 
+    const GENRES = {
+        'CLASSIC': '클래식',
+        'POPULAR': '대중음악',
+        'JAZZ': '재즈',
+        'KOREAN_TRADITIONAL': '국악'
+    }
+
+    const REGION_MAP = {
+        '대전': 'DAEJEON',
+        '충북': 'CHUNGBUK',
+        '충남': 'CHUNGNAM',
+    };
+
+    const GENRE_MAP = {
+        '클래식': 'CLASSIC',
+        '대중음악': 'POPULAR',
+        '재즈': 'JAZZ',
+        '국악': 'KOREAN_TRADITIONAL',
+    };
+
     function handleResetFilters() {
         setFilters({ regions: [], dateFrom: null, genres: [] });
+    }
+
+    async function handleGetPerformances(pageNumber=1) {
+        try {
+            const response = await axiosInstance.get(
+                '/performances', {
+                    params: {
+                        page: pageNumber,
+                        date: filters.dateFrom ?? null,
+                        keyword: searchKeyword ?? null,
+                        sort: filters.orderBy,
+                        regions: filters.regions?.map((r) => REGION_MAP[r]),
+                        genres: filters.genres?.map((g) => GENRE_MAP[g]),
+                    },
+                    paramsSerializer: { indexes: null }
+                }
+            )
+            setPerformances(response.data.data.content);
+            setTotalPages(response.data.data.totalPages)
+            console.log(response.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function handleNextPage(pageNumber) {
+        setCurrentPage(pageNumber);
+        handleGetPerformances(pageNumber);
     }
 
     useEffect(() => {
@@ -23,6 +77,10 @@ export default function ExplorePage() {
         return () => document.removeEventListener('mousedown', handler);
     }, []);
 
+    useEffect(() => {
+        handleGetPerformances();
+    }, [filters]);
+
     return (
         <>
             <div className='explorePage'>
@@ -30,8 +88,8 @@ export default function ExplorePage() {
                 <div className='searchContainer'>
                     <div>
                         <label htmlFor="searchKeyword">검색어</label>
-                        <input id="searchKeyword" type="text" placeholder='공연명 또는 기관명을 검색해보세요' />
-                        <button>검색</button>
+                        <input onChange={(e) => setSearchKeyword(e.target.value)} id="searchKeyword" type="text" placeholder='공연명 또는 기관명을 검색해보세요' />
+                        <button onClick={() => handleGetPerformances()}>검색</button>
                     </div>
                     <div ref={menuRef}>
                         <button onClick={handleResetFilters} className={'allButton ' + (filters.regions.length > 0 || filters.dateFrom || filters.genres.length > 0 ? '' : 'showAll')} >전체</button>
@@ -62,7 +120,7 @@ export default function ExplorePage() {
                     </div>
                     <div style={{ display: filters.regions && filters.dateFrom && filters.genres ? 'flex' : ''}} className='filters'>
                         {
-                            <div style={{ display: filters.dateFrom ? 'block' : 'none' }}>{Number(filters.dateFrom.split('-')[1])}월 {Number(filters.dateFrom.split('-')[2])}일 이후 <button onClick={() => setFilters({...filters, dateFrom: null})}></button></div>
+                            <div style={{ display: filters.dateFrom ? 'block' : 'none' }}>{Number(filters.dateFrom?.split('-')[1])}월 {Number(filters.dateFrom?.split('-')[2])}일 이후 <button onClick={() => setFilters({...filters, dateFrom: null})}></button></div>
                         }
                         {
                             filters.regions.map((r) => (
@@ -76,9 +134,9 @@ export default function ExplorePage() {
                         }
                     </div>
                     <div>
-                        <select>
-                            <option value="">공연 일시 순</option>
-                            <option value="">마감 임박 순</option>
+                        <select onChange={(e) => setFilters({...filters, orderBy: e.target.value})} value={filters.orderBy}>
+                            <option value="PERFORMANCE_DATE">공연 일시 순</option>
+                            <option value="DEADLINE">마감 임박 순</option>
                         </select>
                     </div>
                     <table>
@@ -93,31 +151,36 @@ export default function ExplorePage() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className='resultDateTime'>
-                                    <div>10월 7일</div>
-                                    <div>14:00</div>
-                                </td>
-                                <td>
-                                    <div className='resultStatus'>
-                                        <StatusIcon text='모집중' />
-                                        <div>00 요양원 가을 위로 공연</div>
-                                        <div>대전 유성구 · 00 요양원</div>
-                                    </div>
-                                </td>
-                                <td>클래식</td>
-                                <td>40분</td>
-                                <td className='resultDueDate'>
-                                    <div>D-6</div>
-                                    <div>마감일: 2026. 10. 3</div>
-                                </td>
-                                <td className='resultInformation'>
-                                    <div>모집 2팀</div>
-                                    <div>지원 7팀</div>
-                                </td>
-                            </tr>
+                            {
+                                performances?.map((p) => (
+                                    <tr key={p.performanceId}>
+                                        <td className='resultDateTime'>
+                                            <div>{p.performanceDate.split('-')[1]}월 {p.performanceDate.split('-')[2]}일</div>
+                                            <div>{p.startTime}</div>
+                                        </td>
+                                        <td>
+                                            <div className='resultStatus'>
+                                                <StatusIcon text={p.status} />
+                                                <div>{p.title}</div>
+                                                <div>{p.address} · {p.hostName}</div>
+                                            </div>
+                                        </td>
+                                        <td>{GENRES[p.genre]}</td>
+                                        <td>{p.runningTime}분</td>
+                                        <td className='resultDueDate'>
+                                            <div>{p.daysUntilDeadline > 0 ? 'D-' + p.daysUntilDeadline : (p.daysUntilDeadline == 0 ? 'D-DAY' : '모집 마감') }</div>
+                                            <div>마감일: {p.applicationDeadline}</div>
+                                        </td>
+                                        <td className='resultInformation'>
+                                            <div>모집 {p.recruitTeamCount}팀</div>
+                                            <div>지원 {p.applicantCount}팀</div>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
+                    <Pagination onClick={handleNextPage} currentPage={currentPage} totalPages={totalPages}  />
                 </div>
             </div>
         </>
