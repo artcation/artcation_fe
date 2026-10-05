@@ -76,10 +76,11 @@
     border: 1px solid #BDBDBD;
     border-radius: 10px;
     padding: 0 1rem;
-    color: #9E9E9E;
+    color: #424242;
+    font-size: 1rem;
 }
 
-.postingInputs input::placeholder {
+.postingInputs input::placeholder, .postingInputs input:invalid, .postingInputs select:invalid {
     color: #9E9E9E;
 }
 
@@ -91,6 +92,7 @@
 
 .postingTextBox {
     width: 100%;
+    color: #424242;
     resize: none;
     font-size: 1.25rem;
     line-height: 2;
