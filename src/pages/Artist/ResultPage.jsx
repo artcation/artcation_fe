@@ -5,9 +5,9 @@ import './ResultPage.css'
 export default function ResultPage() {
     return (
         <>
-            <div className="resultPage">
+            <div className="applicationPage resultPage">
                 <div>
-                    <StatusIcon />
+                    <StatusIcon text={"SELECTED"} />
                     <h1>00 요양원 가을 위로 공연</h1>
                 </div>
                 <div>
@@ -20,8 +20,19 @@ export default function ResultPage() {
                 </div>
                 <div>
                     <h2>공연 정보</h2>
-                    <div>
-
+                    <div className="postingPerformanceInfo">
+                        <div>
+                            공연일시
+                        </div>
+                        <div>
+                            장소명
+                        </div>
+                        <div>
+                            러닝타임
+                        </div>
+                        <div>
+                            장르
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -38,8 +49,8 @@ export default function ResultPage() {
                 </div>
             </div>
             <div className="bottomBar">
-                <BottomButton />
-                <BottomButton />
+                <BottomButton text={"참여 확정하기 (D-2)"} type="primary" />
+                <BottomButton text="참여 취소" type={"cancel"} />
             </div>
         </>
     )
