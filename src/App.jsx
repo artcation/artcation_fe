@@ -9,6 +9,7 @@ import RegisterPage from './pages/Login/RegisterPage'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
+import ResultPage from './pages/Artist/ResultPage'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/artist' />
           <Route path='/artist/explore' element={<ExplorePage />} />
           <Route path='/artist/posting' element={<PostingPage />} />
+          <Route path='/artist/result' element={<ResultPage />} />
           <Route path='/host' />
         </Route>
       </Routes>
