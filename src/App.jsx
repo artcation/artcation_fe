@@ -10,6 +10,8 @@ import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
 import ResultPage from './pages/Artist/ResultPage'
+import ApplicationPage from './pages/Artist/ApplicationPage'
+import MyApplicationsPage from './pages/Artist/MyApplicationsPage'
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path='/artist/explore' element={<ExplorePage />} />
           <Route path='/artist/posting' element={<PostingPage />} />
           <Route path='/artist/result' element={<ResultPage />} />
+          <Route path='/artist/application' element={<ApplicationPage />} />
+          <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/host' />
         </Route>
       </Routes>
