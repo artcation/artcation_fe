@@ -12,6 +12,16 @@ import TermsPage from './pages/Login/TermsPage'
 import ResultPage from './pages/Artist/ResultPage'
 import ApplicationPage from './pages/Artist/ApplicationPage'
 import MyApplicationsPage from './pages/Artist/MyApplicationsPage'
+import MyPostingsPage from './pages/Host/MyPostingsPage'
+import PostingCreatePage from './pages/Host/PostingCreatePage'
+import PostingDetailPage from './pages/Host/PostingDetailPage'
+import ApplicationReviewPage from './pages/Host/ApplicationReviewPage'
+import {
+  HOST_POSTINGS,
+  HOST_POSTING_CREATE,
+  HOST_POSTING_DETAIL,
+  HOST_APPLICATION_REVIEW,
+} from './routes'
 
 function App() {
   return (
@@ -33,6 +43,10 @@ function App() {
           <Route path='/artist/application' element={<ApplicationPage />} />
           <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/host' />
+          <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
+          <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />
+          <Route path={HOST_POSTING_DETAIL} element={<PostingDetailPage />} />
+          <Route path={HOST_APPLICATION_REVIEW} element={<ApplicationReviewPage />} />
         </Route>
       </Routes>
     </>
