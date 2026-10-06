@@ -1,10 +1,11 @@
 import BottomButton from "../../components/bottomButton";
 import StatusIcon from "../../components/StatusIcon";
+import './ResultPage.css'
 
 export default function ResultPage() {
     return (
         <>
-            <div>
+            <div className="resultPage">
                 <div>
                     <StatusIcon />
                     <h1>00 요양원 가을 위로 공연</h1>
@@ -32,7 +33,7 @@ export default function ResultPage() {
                 <div>
                     <h2>정산 안내</h2>
                     <div>
-                        
+
                     </div>
                 </div>
             </div>
