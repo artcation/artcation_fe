@@ -1,4 +1,49 @@
 .resultPage > div:first-child {
+    flex-direction: row;
+}
+
+.congratsContainer {
+    border: 2px solid #722EF4;
+    border-radius: 22px;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(273.14deg, #F0EAFA 44.13%, #FAFAFF 104.74%),
+        linear-gradient(273.14deg, #E8E4FA 32.73%, #FAFAFF 104.74%);
+}
+
+.congratsContainer > div:first-child, .congratsContainer > div:last-child {
+    color: #956BD8;
+    font-size: 0.8rem;
+}
+
+.congratsContainer > div:last-child {
+    text-align: end;
+}
+
+.resultPage > .congratsContainer > div:nth-child(2) {
+    border: none;
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    color: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    gap: 0.5rem;
+}
+
+.resultPage > .congratsContainer > div:nth-child(2) > div {
+    display: flex;
+    justify-content: center;
+}
+
+.congratsContainer img {
+    width: 7rem;
+    height: auto;
+}
+
+.resultPage > .congratsContainer > div:nth-child(2) > div:nth-child(2) {
+    color: #38108F;
+}
+
+.resultPage > .congratsContainer > div:nth-child(2) > div:nth-child(3) {
+    font-size: 2rem;
 }
