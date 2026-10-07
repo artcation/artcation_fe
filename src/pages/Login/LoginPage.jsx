@@ -15,9 +15,11 @@ export default function LoginPage() {
                 <LoginButton text="로그인" type="active" />
             </div>
             <div className="loginHelp">
-                <Link to="/register">계정 만들기</Link>
+                <Link to="/signup/terms">회원가입</Link>
                 <span>|</span>
-                <Link>아이디 · 비밀번호 찾기</Link>
+                <Link>아이디 찾기</Link>
+                <span>|</span>
+                <Link>비밀번호 찾기</Link>
             </div>
         </>
     )

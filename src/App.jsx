@@ -10,6 +10,17 @@ import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import ApplicationPage from './pages/Artist/ApplicationPage'
 import MyApplicationsPage from './pages/Artist/MyApplicationsPage'
+import TermsPage from './pages/Login/TermsPage'
+import MyPostingsPage from './pages/Host/MyPostingsPage'
+import PostingCreatePage from './pages/Host/PostingCreatePage'
+import PostingDetailPage from './pages/Host/PostingDetailPage'
+import ApplicationReviewPage from './pages/Host/ApplicationReviewPage'
+import {
+  HOST_POSTINGS,
+  HOST_POSTING_CREATE,
+  HOST_POSTING_DETAIL,
+  HOST_APPLICATION_REVIEW,
+} from './routes'
 
 function App() {
   return (
@@ -19,7 +30,8 @@ function App() {
         <Route path='/' element={<MainPage />} />
         <Route element={<LoginLayout />}>
           <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/signup/terms' element={<TermsPage />} />
+          <Route path='/signup/create' element={<RegisterPage />} />
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path='/example' element={<ExamplePage />} />
@@ -29,6 +41,10 @@ function App() {
           <Route path='/artist/application' element={<ApplicationPage />} />
           <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/host' />
+          <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
+          <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />
+          <Route path={HOST_POSTING_DETAIL} element={<PostingDetailPage />} />
+          <Route path={HOST_APPLICATION_REVIEW} element={<ApplicationReviewPage />} />
         </Route>
       </Routes>
     </>

@@ -15,6 +15,9 @@ export default function MyApplicationsPage() {
                     <button>지원 완료</button>
                     <button>미선정·취소</button>
                 </div>
+                <div>
+                    
+                </div>
             </div>
         </>
     )
