@@ -1,9 +1,3 @@
-.applicationPage ul {
-    padding-left: 1rem;
-    line-height: 2;
-    color: #616161;
-}
-
 .applicationPage > div {
     display: flex;
     flex-direction: column;
