@@ -2,6 +2,7 @@ import { useState } from "react";
 import Pagination from "../../components/Pagination";
 import './MyApplicationsPage.css'
 import StatusIcon from "../../components/StatusIcon";
+import FilterButtons from "../../components/FilterButtons";
 
 export default function MyApplicationsPage() {
     const [filters, setFilters] = useState({ filter: null, orderBy: 'PERFORMANCE_DATE' });
@@ -45,28 +46,7 @@ export default function MyApplicationsPage() {
                     <li>모집이 마감된 이후에는 지원서 수정·취소가 제한됩니다.</li>
                     <li>선정 시 3일 이내에 확정하지 않으면 자동 취소됩니다.</li>
                 </ul>
-                <div className="filterButtons">
-                    <button className={!filters.filter ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: null})}>
-                        <div>전체</div>
-                        <div>2</div>
-                    </button>
-                    <button className={filters.filter == 'CONFIRMED' ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: 'CONFIRMED'})}>
-                        <div>확정</div>
-                        <div>8</div>
-                    </button>
-                    <button className={filters.filter == 'SELECTED' ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: 'SELECTED'})}>
-                        <div>선정</div>
-                        <div>3</div>
-                    </button>
-                    <button className={filters.filter == 'APPLIED' ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: 'APPLIED'})}>
-                        <div>지원 완료</div>
-                        <div>4</div>
-                    </button>
-                    <button className={filters.filter == 'REJECTED' ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: 'REJECTED'})}>
-                        <div>미선정·취소</div>
-                        <div>1</div>
-                    </button>
-                </div>
+                <FilterButtons filters={filters} setFilters={setFilters} type={"artist"} />
                 <div className="searchContainer">
                     <div className="selectContainer">
                         <select onChange={(e) => setFilters({...filters, orderBy: e.target.value})} value={filters.orderBy}>
