@@ -21,8 +21,17 @@
 .personalArea {
     display: flex;
     gap: 1rem;
+}
+
+.personalArea button {
+    border: none;
+    background-color: transparent;
     font-size: 1rem;
     color: #616161;
+}
+
+.personalArea button:hover {
+    text-decoration: underline;
 }
 
 .defaultContent > div:first-child {

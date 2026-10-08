@@ -2,12 +2,25 @@ import { Outlet } from 'react-router';
 import logo from '../assets/logo.png';
 import './DefaultLayout.css';
 import { useNavigate } from 'react-router';
+import axiosInstance from '../../api/axiosInstance';
+import { useContext } from 'react';
+import { LoginContext } from '../context/LoginContext';
 
 export default function DefaultLayout() {
     const navigate = useNavigate();
+    const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
 
     function handleLogo() {
         navigate('/');
+    }
+
+    async function handleLogout() {
+        try {
+            const response = await axiosInstance.post('/auth/logout');
+            setIsLoggedIn(false);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -15,7 +28,16 @@ export default function DefaultLayout() {
             <div className="defaultTopBar">
                 <img onClick={handleLogo} src={logo} alt="" />
                 <div className='personalArea'>
-                    추후 구현
+                    {
+                        isLoggedIn ?
+                        <button onClick={handleLogout}>
+                            로그아웃
+                        </button>
+                        :
+                        <button onClick={() => navigate('/login')}>
+                            로그인
+                        </button>
+                    }
                 </div>
             </div>
             <div className="defaultContent">

@@ -1,5 +1,7 @@
 import './App.css'
-import { Route, Routes } from 'react-router'
+import { useEffect, useState } from 'react'
+import { Route, Routes, useNavigate } from 'react-router'
+import { LoginContext } from './context/LoginContext'
 import MainPage from './pages/MainPage'
 import LoginLayout from './layouts/LoginLayout'
 import DefaultLayout from './layouts/DefaultLayout'
@@ -9,10 +11,28 @@ import RegisterPage from './pages/Login/RegisterPage'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
+import axiosInstance from '../api/axiosInstance'
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  async function handleIsLoggedIn() {
+    try {
+      const response = await axiosInstance.get('/users/me');
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.log(error);
+      navigate('/login');
+    }
+  }
+  
+  useEffect(() => {
+    handleIsLoggedIn();
+  }, [])
+
   return (
-    <>
+    <LoginContext value={{isLoggedIn, setIsLoggedIn}}>
       <title>Artcation</title>
       <Routes>
         <Route path='/' element={<MainPage />} />
@@ -29,7 +49,7 @@ function App() {
           <Route path='/host' />
         </Route>
       </Routes>
-    </>
+    </LoginContext>
   )
 }
 
