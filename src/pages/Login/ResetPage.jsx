@@ -5,7 +5,7 @@ import icon_invisible from '../../assets/icon_invisible.png';
 import icon_tooltip from '../../assets/icon_tooltip.png';
 import icon_check from '../../assets/icon_check.png';
 import axiosInstance from "../../../api/axiosInstance";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import NoticePopup from "../../components/NoticePopup";
 
 export default function ResetPage() {
@@ -17,6 +17,7 @@ export default function ResetPage() {
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token');
     const [popupVisibility, setPopupVisibility] = useState(false);
+    const navigate = useNavigate();
 
     function handlePwVisibility(type) {
         if (type == 'pw') {
@@ -49,7 +50,7 @@ export default function ResetPage() {
 
     return (
         <>
-            <NoticePopup mainText={<p>비밀번호가 변경되었습니다</p>} image={icon_check} visibility={true} />
+            <NoticePopup mainText={<p>비밀번호가 변경되었습니다</p>} subText={"새 비밀번호로 로그인해 주세요."} onRightButtonClick={() => navigate('/login')} type={'primary'} rightButtonText={"로그인"} image={icon_check} visibility={popupVisibility} />
             <div className="loginHeader registerHeader">
                 <h1>비밀번호 재설정</h1>
                 <p>새 비밀번호를 설정해 주세요</p>

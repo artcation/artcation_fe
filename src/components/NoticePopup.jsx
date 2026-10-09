@@ -8,7 +8,7 @@ export default function NoticePopup({ visibility, image, mainText, subText, left
     return (
         <div className="noticePopupBg">
             <div className="noticePopup">
-                {image && <img src={image} alt="" />}
+                {image && <img style={ type === 'primary' ? { width: '2rem' } : {} } src={image} alt="" />}
                 <div>
                     {mainText}
                     <p>{subText}</p>

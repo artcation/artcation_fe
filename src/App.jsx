@@ -1,6 +1,6 @@
 import './App.css'
-import { useEffect, useState } from 'react'
-import { Route, Routes, useNavigate } from 'react-router'
+import { useState } from 'react'
+import { Route, Routes } from 'react-router'
 import { LoginContext } from './context/LoginContext'
 import MainPage from './pages/MainPage'
 import LoginLayout from './layouts/LoginLayout'
