@@ -45,7 +45,7 @@ function App() {
           <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/artist/posting/:performanceId' element={<PostingPage />} />
           <Route path='/artist/application/:performanceId' element={<ApplicationPage />} />
-          <Route path='/artist/myapplication/:performanceId' element={<MyApplicationPage />} />
+          <Route path='/artist/myapplication/:applicationId' element={<MyApplicationPage />} />
           <Route path='/host' />
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
           <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />

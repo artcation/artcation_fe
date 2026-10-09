@@ -1,0 +1,23 @@
+.applicationPage > .applicationButtons {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.applicationButtons button {
+    border-radius: 6px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    padding: 1rem 4rem;
+}
+
+.applicationButtons button:first-child {
+    border: solid #EC4E4E 2px;
+    color: #EC4E4E;
+    background-color: white;
+}
+
+.applicationButtons button:last-child {
+    border: solid var(--primary-color) 2px;
+    color: white;
+    background-color: var(--primary-color);
+}
