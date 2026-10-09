@@ -8,7 +8,7 @@ import { LoginContext } from "../../context/LoginContext";
 export default function LoginPage() {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState('');
     const navigate = useNavigate();
     const { setIsLoggedIn } = useContext(LoginContext);
 
@@ -37,7 +37,7 @@ export default function LoginPage() {
                 <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="비밀번호" />
                 {
                     errors ?
-                    <p>* {errors}.</p>
+                    <p>* {errors ? errors : ''}.</p>
                     :
                     ''
                 }
