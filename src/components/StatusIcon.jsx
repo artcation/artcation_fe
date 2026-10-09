@@ -14,7 +14,7 @@ export default function StatusIcon({text}) {
 
     return (
         <div style={styles[text]} className='statusIcon'>
-            {styles[text].message}
+            {styles[text]?.message}
         </div>
     )
 }
