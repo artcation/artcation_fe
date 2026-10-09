@@ -12,6 +12,16 @@ import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
 import axiosInstance from '../api/axiosInstance'
+import MyPostingsPage from './pages/Host/MyPostingsPage'
+import PostingCreatePage from './pages/Host/PostingCreatePage'
+import PostingDetailPage from './pages/Host/PostingDetailPage'
+import ApplicationReviewPage from './pages/Host/ApplicationReviewPage'
+import {
+  HOST_POSTINGS,
+  HOST_POSTING_CREATE,
+  HOST_POSTING_DETAIL,
+  HOST_APPLICATION_REVIEW,
+} from './routes'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,6 +57,10 @@ function App() {
           <Route path='/artist/explore' element={<ExplorePage />} />
           <Route path='/artist/posting' element={<PostingPage />} />
           <Route path='/host' />
+          <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
+          <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />
+          <Route path={HOST_POSTING_DETAIL} element={<PostingDetailPage />} />
+          <Route path={HOST_APPLICATION_REVIEW} element={<ApplicationReviewPage />} />
         </Route>
       </Routes>
     </LoginContext>
