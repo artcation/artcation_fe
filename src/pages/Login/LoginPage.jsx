@@ -1,8 +1,31 @@
 import LoginButton from "../../components/LoginButton"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import './LoginPage.css'
+import axiosInstance from "../../../api/axiosInstance";
+import { useContext, useState } from "react";
+import { LoginContext } from "../../context/LoginContext";
 
 export default function LoginPage() {
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState('');
+    const navigate = useNavigate();
+    const { setIsLoggedIn } = useContext(LoginContext);
+
+    async function handleLogin() {
+        try {
+            const response = await axiosInstance.post('/auth/login', {
+                loginId: id,
+                password: password
+            })
+            setIsLoggedIn(true);
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+            setErrors(error.response.data.message);
+        }
+    }
+
     return (
         <>
             <div className="loginHeader">
@@ -10,9 +33,15 @@ export default function LoginPage() {
                 <p>로그인하고 나에게 맞는 공연 기회를 찾아보세요</p>
             </div>
             <div className="loginInputs">
-                <input type="text" placeholder="아이디" />
-                <input type="password" placeholder="비밀번호" />
-                <LoginButton text="로그인" type="active" />
+                <input value={id} onChange={(e) => setId(e.target.value)} type="text" placeholder="아이디" />
+                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="비밀번호" />
+                {
+                    errors ?
+                    <p>* {errors ? errors : ''}.</p>
+                    :
+                    ''
+                }
+                <LoginButton onClick={handleLogin} text="로그인" type={id && password ? "active" : 'inactive'} />
             </div>
             <div className="loginHelp">
                 <Link to="/signup/terms">회원가입</Link>

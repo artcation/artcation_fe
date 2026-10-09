@@ -1,13 +1,21 @@
 import logo from '../assets/logo.png';
 import './LoginLayout.css';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, Outlet } from 'react-router';
+import { LoginContext } from '../context/LoginContext';
 import { SignupContext } from '../context/SignupContext'
 
 
 export default function LoginLayout() {
     const navigate = useNavigate();
+    const { isLoggedIn } = useContext(LoginContext);
     const [checks, setChecks] = useState({ageCheck: false, termsCheck: false, privacyCheck: false, marketingCheck: false});
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/')
+        }
+    }, [isLoggedIn])
 
     function handleLogo() {
         navigate('/');

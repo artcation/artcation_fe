@@ -1,5 +1,7 @@
 import './App.css'
-import { Route, Routes } from 'react-router'
+import { useEffect, useState } from 'react'
+import { Route, Routes, useNavigate } from 'react-router'
+import { LoginContext } from './context/LoginContext'
 import MainPage from './pages/MainPage'
 import LoginLayout from './layouts/LoginLayout'
 import DefaultLayout from './layouts/DefaultLayout'
@@ -23,10 +25,28 @@ import {
   HOST_POSTING_DETAIL,
   HOST_APPLICATION_REVIEW,
 } from './routes'
+import axiosInstance from '../api/axiosInstance'
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  async function handleIsLoggedIn() {
+    try {
+      const response = await axiosInstance.get('/users/me');
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.log(error);
+      navigate('/login');
+    }
+  }
+  
+  useEffect(() => {
+    handleIsLoggedIn();
+  }, [])
+
   return (
-    <>
+    <LoginContext value={{isLoggedIn, setIsLoggedIn}}>
       <title>Artcation</title>
       <Routes>
         <Route path='/' element={<MainPage />} />
@@ -53,7 +73,7 @@ function App() {
           <Route path={HOST_APPLICATION_REVIEW} element={<ApplicationReviewPage />} />
         </Route>
       </Routes>
-    </>
+    </LoginContext>
   )
 }
 
