@@ -126,7 +126,7 @@ export default function RegisterPage() {
 
     return (
         <>
-            <Popup visibility={true} mainText='회원가입이 완료되었습니다' subText='Artcation과 함께 새로운 공연 기회를 만나보세요.' />
+            <Popup visibility={false} mainText='회원가입이 완료되었습니다' subText='Artcation과 함께 새로운 공연 기회를 만나보세요.' />
             <div className="loginHeader registerHeader">
                 <h1>계정 생성</h1>
                 <p>계정을 만들고 나에게 맞는 공연 기회를 찾아보세요</p>

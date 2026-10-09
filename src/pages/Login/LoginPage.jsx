@@ -46,9 +46,9 @@ export default function LoginPage() {
             <div className="loginHelp">
                 <Link to="/signup/terms">회원가입</Link>
                 <span>|</span>
-                <Link>아이디 찾기</Link>
+                <Link to="/find/id">아이디 찾기</Link>
                 <span>|</span>
-                <Link>비밀번호 찾기</Link>
+                <Link to="/find/password">비밀번호 찾기</Link>
             </div>
         </>
     )

@@ -37,7 +37,7 @@
 
 .loginInputs p {
     font-size: 0.7rem;
-    color: red;
+    color: var(--error-color);
 }
 
 .loginHelp {

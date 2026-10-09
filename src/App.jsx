@@ -8,10 +8,11 @@ import DefaultLayout from './layouts/DefaultLayout'
 import ExamplePage from './pages/ExamplePage'
 import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Login/RegisterPage'
+import FindPage from './pages/Login/FindPage'
+import ResetPage from './pages/Login/ResetPage'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
-import axiosInstance from '../api/axiosInstance'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
 import PostingCreatePage from './pages/Host/PostingCreatePage'
 import PostingDetailPage from './pages/Host/PostingDetailPage'
@@ -25,21 +26,6 @@ import {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
-
-  async function handleIsLoggedIn() {
-    try {
-      const response = await axiosInstance.get('/users/me');
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.log(error);
-      navigate('/login');
-    }
-  }
-  
-  useEffect(() => {
-    handleIsLoggedIn();
-  }, [])
 
   return (
     <LoginContext value={{isLoggedIn, setIsLoggedIn}}>
@@ -50,6 +36,8 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup/terms' element={<TermsPage />} />
           <Route path='/signup/create' element={<RegisterPage />} />
+          <Route path='/find/:type' element={<FindPage />} />
+          <Route path='/reset-password' element={<ResetPage />} />
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path='/example' element={<ExamplePage />} />

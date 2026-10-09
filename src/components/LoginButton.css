@@ -10,5 +10,9 @@
 }
 
 .loginButtonInactive {
-    background: #BDBDBD;
+    background-color: #BDBDBD;
+}
+
+.findButton {
+    background-color: #757575;
 }

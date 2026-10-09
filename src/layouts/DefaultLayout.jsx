@@ -23,6 +23,20 @@ export default function DefaultLayout() {
         }
     }
 
+    async function handleIsLoggedIn() {
+        try {
+            const response = await axiosInstance.get('/users/me');
+            setIsLoggedIn(true);
+        } catch (error) {
+            console.log(error);
+            navigate('/login');
+        }
+    }
+    
+    useEffect(() => {
+        handleIsLoggedIn();
+    }, [])
+
     return (
         <div className="defaultLayout">
             <div className="defaultTopBar">
