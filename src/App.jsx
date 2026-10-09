@@ -9,8 +9,10 @@ import RegisterPage from './pages/Login/RegisterPage'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
+import ResultPage from './pages/Artist/ResultPage'
 import ApplicationPage from './pages/Artist/ApplicationPage'
 import MyApplicationPage from './pages/Artist/MyApplicationPage'
+import MyApplicationsPage from './pages/Artist/MyApplicationsPage'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
 import PostingCreatePage from './pages/Host/PostingCreatePage'
 import PostingDetailPage from './pages/Host/PostingDetailPage'
@@ -37,6 +39,10 @@ function App() {
           <Route path='/example' element={<ExamplePage />} />
           <Route path='/artist' />
           <Route path='/artist/explore' element={<ExplorePage />} />
+          <Route path='/artist/posting' element={<PostingPage />} />
+          <Route path='/artist/result' element={<ResultPage />} />
+          <Route path='/artist/application' element={<ApplicationPage />} />
+          <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/artist/posting/:performanceId' element={<PostingPage />} />
           <Route path='/artist/application/:performanceId' element={<ApplicationPage />} />
           <Route path='/artist/myapplication/:performanceId' element={<MyApplicationPage />} />
