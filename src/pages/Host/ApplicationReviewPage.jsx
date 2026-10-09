@@ -95,16 +95,16 @@ export default function ApplicationReviewPage() {
             <NoticePopup
                 visibility={popup == 'saved'}
                 image={icon_popup_saved}
-                mainText="임시 저장 완료"
+                mainText={<p>임시 저장 완료</p>}
                 subText="작성 중인 내용이 저장되었습니다."
-                onButtonClick={() => setPopup('')}
+                onLeftButtonClick={() => setPopup('')}
             />
             <NoticePopup
                 visibility={popup == 'sent'}
                 image={icon_popup_sent}
-                mainText={<><span>결과 전송</span> 완료!</>}
+                mainText={<p><span>결과 전송</span> 완료!</p>}
                 subText="지원자에게 결과 안내가 완료되었습니다."
-                onButtonClick={() => setPopup('')}
+                onLeftButtonClick={() => setPopup('')}
             />
         </>
     )

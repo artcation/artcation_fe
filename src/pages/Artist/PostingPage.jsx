@@ -1,7 +1,11 @@
+import { useState } from "react";
+import axiosInstance from "../../../api/axiosInstance";
 import BottomButton from "../../components/bottomButton";
 import './PostingPage.css';
+import { useParams } from "react-router";
 
 export default function PostingPage() {
+    
     return (
         <>
             <div className="postingPage">
