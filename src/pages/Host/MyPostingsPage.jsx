@@ -7,13 +7,6 @@ import './MyPostingsPage.css'
 
 const { summary, performances, currentPage, totalPages } = MOCK_MY_POSTINGS
 
-const STATUS_LABEL = {
-    CONFIRMED: '확정',
-    RECRUITING: '모집중',
-    IN_REVIEW: '검토중',
-    CANCELED: '취소',
-}
-
 const SUMMARY_CARDS = [
     { label: '전체', count: summary.total },
     { label: '확정', count: summary.confirmed },
@@ -71,7 +64,7 @@ export default function MyPostingsPage() {
                                 <tr key={posting.performanceId}>
                                     <td>
                                         <div className="postingName">
-                                            <StatusIcon text={STATUS_LABEL[posting.status]} />
+                                            <StatusIcon text={posting.status} />
                                             <div>
                                                 <Link to={hostPostingDetailPath(posting.performanceId)} title={posting.title}>{posting.title}</Link>
                                             </div>
@@ -97,7 +90,7 @@ export default function MyPostingsPage() {
                         </tbody>
                     </table>
 
-                    <Pagination currentPage={currentPage} totalPages={totalPages} />
+                    <Pagination onClick={() => {}} currentPage={currentPage} totalPages={totalPages} />
                 </div>
             </div>
         </>

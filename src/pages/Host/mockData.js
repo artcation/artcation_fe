@@ -107,3 +107,22 @@ export const MOCK_MY_POSTINGS = {
     currentPage: 1,
     totalPages: 5,
 }
+
+export const MOCK_POSTING_DETAIL = {
+    performanceId: 1,
+    status: 'RECRUITING',
+    title: '00 요양원 가을 위로 공연',
+    placeName: 'OO 요양원 1층 강당',
+    performanceDate: '2026-10-23',
+    startTime: '14:00',
+    runningTime: 40,
+    applicationDeadline: '2026-10-03',
+    genre: '클래식',
+    recruitTeamCount: 2,
+    budget: 300000,
+    description: '어르신 관객 60명입니다. 익숙한 곡 위주로 구성해주세요.\n스피커, 의자 3개, 보면대 2개를 제공합니다.',
+    requestToArtist: '공연 시작 1시간 전까지 도착해 주세요.',
+    uploadedFiles: [],
+    availableActions: ['EDIT', 'CANCEL', 'CLOSE_EARLY'],
+}
+
