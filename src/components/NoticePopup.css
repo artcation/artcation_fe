@@ -48,3 +48,17 @@
 .noticePopup > div > p:first-child span {
     color: var(--primary-color);
 }
+
+.noticePopup img {
+    width: 7rem;
+}
+
+.noticePopup > div:last-child {
+    display: flex;
+    flex-direction: row;
+}
+
+.noticePopup .cancelButton {
+    border: solid 1px var(--error-color);
+    color: var(--error-color);
+}
