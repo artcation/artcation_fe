@@ -10,6 +10,7 @@ import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
 import ApplicationPage from './pages/Artist/ApplicationPage'
+import MyApplicationPage from './pages/Artist/MyApplicationPage'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
 import PostingCreatePage from './pages/Host/PostingCreatePage'
 import PostingDetailPage from './pages/Host/PostingDetailPage'
@@ -38,6 +39,7 @@ function App() {
           <Route path='/artist/explore' element={<ExplorePage />} />
           <Route path='/artist/posting/:performanceId' element={<PostingPage />} />
           <Route path='/artist/application/:performanceId' element={<ApplicationPage />} />
+          <Route path='/artist/myapplication/:performanceId' element={<MyApplicationPage />} />
           <Route path='/host' />
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
           <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />
