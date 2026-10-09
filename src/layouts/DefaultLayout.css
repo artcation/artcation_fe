@@ -37,6 +37,43 @@
     font-size: 2rem;
 }
 
+.defaultContent > div:first-child h2 {
+    font-size: 1.2rem;
+}
+
+.defaultContent > div:first-child h3 {
+    color: #616161;
+    font-size: 1rem;
+}
+
+.defaultContent ul {
+    padding-left: 1rem;
+    line-height: 2;
+    color: #616161;
+}
+
+.defaultContent table {
+    width: 100%;
+    border-top: 1.5px solid #757575;
+    border-collapse: collapse;
+}
+
+.defaultContent thead {
+    background-color: #F5F5F5;
+    color: #757575;
+}
+
+.defaultContent th {
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+.defaultContent td {
+    text-align: center;
+    padding: 1.5rem;
+    color: #757575;
+}
+
 .bottomBar {
     display: flex;
     justify-content: center;

@@ -59,6 +59,12 @@ export default function PostingPage() {
                         기본 스피커 제공 의자 3개 제공 보면대 2개 제공 추가 장비 필요 시 사전 협의
                     </div>
                 </div>
+                <div>
+                    <h2>공연 장소</h2>
+                    <div>
+                        대전광역시 유성구 대학로 99 · ○○요양원 1층 강당
+                    </div>
+                </div>
             </div>
             <div className="bottomBar">
                 <BottomButton text='지원하기 (D-6)' type='primary' />

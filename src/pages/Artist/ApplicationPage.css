@@ -1,0 +1,43 @@
+.applicationPage > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.postingPerformanceInfo, .applicationPage textarea, .applicationPage input {
+    border: 2px solid #E0E0E0;
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+}
+
+.applicationPage .applicationInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.applicationInputs > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.applicationInputs span {
+    color: var(--primary-color);
+}
+
+.applicationPage textarea, .applicationPage input {
+    width: 100%;
+    color: #616161;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.applicationInputs textarea {
+    resize: none;
+    height: 10rem;
+}
+
+.applicationPage input::placeholder {
+    color: #BDBDBD;
+}

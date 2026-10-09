@@ -8,6 +8,8 @@ import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Login/RegisterPage'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
+import ApplicationPage from './pages/Artist/ApplicationPage'
+import MyApplicationsPage from './pages/Artist/MyApplicationsPage'
 import TermsPage from './pages/Login/TermsPage'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
 import PostingCreatePage from './pages/Host/PostingCreatePage'
@@ -36,6 +38,8 @@ function App() {
           <Route path='/artist' />
           <Route path='/artist/explore' element={<ExplorePage />} />
           <Route path='/artist/posting' element={<PostingPage />} />
+          <Route path='/artist/application' element={<ApplicationPage />} />
+          <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/host' />
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
           <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />
