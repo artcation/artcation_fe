@@ -35,6 +35,11 @@
     color: #BDBDBD;
 }
 
+.loginInputs p {
+    font-size: 0.7rem;
+    color: var(--error-color);
+}
+
 .loginHelp {
     display: flex;
     justify-content: center;

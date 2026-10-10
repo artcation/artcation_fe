@@ -8,6 +8,7 @@ export default function MainPage() {
                 Artcation
             </div>
             <Link to="/artist">/artist</Link>
+            <Link to="/artist/explore">/artist/explore</Link>
             <Link to="/host">/host</Link>
             <Link to={HOST_POSTINGS}>{HOST_POSTINGS}</Link>
             <Link to="/login">/login</Link>

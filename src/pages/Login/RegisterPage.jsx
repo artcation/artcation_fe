@@ -3,11 +3,13 @@ import './RegisterPage.css'
 import axiosInstance from '../../../api/axiosInstance'
 import { useContext, useState } from "react";
 import Timer from "../../components/Timer";
+import icon_check from '../../assets/icon_check.png';
 import icon_visible from '../../assets/icon_visible.png';
 import icon_invisible from '../../assets/icon_invisible.png';
 import icon_tooltip from '../../assets/icon_tooltip.png';
 import { SignupContext } from "../../context/SignupContext";
-import Popup from "../../components/Popup";
+import NoticePopup from "../../components/NoticePopup";
+import { useNavigate } from "react-router";
 
 export default function RegisterPage() {
     const { checks } = useContext(SignupContext);
@@ -24,6 +26,8 @@ export default function RegisterPage() {
     const [messages, setMessages] = useState([]);
     const [timerKey, setTimerKey] = useState(0);
     const allChecked = id && emailAtCode && codeChecked && pw && pw == pwCheck;
+    const navigate = useNavigate();
+    const [popupVisibility, setPopupVisibility] = useState(false);
 
     async function handleEmailCodeGet() {
         try {
@@ -34,6 +38,7 @@ export default function RegisterPage() {
                     email: email
                 }
             )
+            console.log(response);
             setCodeSent(true);
             setTimerKey(timerKey + 1);
             setMessages({...messages, emailError: ''});
@@ -104,8 +109,7 @@ export default function RegisterPage() {
                     agreedToMarketing: checks.marketingCheck
                 }
             )
-
-            console.log(response);
+            setPopupVisibility(true);
         } catch (error) {
             console.log(error.response.data);
             // setMessages({});
@@ -126,7 +130,7 @@ export default function RegisterPage() {
 
     return (
         <>
-            <Popup visibility={true} mainText='회원가입이 완료되었습니다' subText='Artcation과 함께 새로운 공연 기회를 만나보세요.' />
+            <NoticePopup visibility={popupVisibility} onRightButtonClick={() => navigate('/')} image={icon_check} rightButtonText={'메인 화면으로 이동'} type={'primary'} mainText={<p>회원가입이 완료되었습니다</p>} subText='Artcation과 함께 새로운 공연 기회를 만나보세요.' />
             <div className="loginHeader registerHeader">
                 <h1>계정 생성</h1>
                 <p>계정을 만들고 나에게 맞는 공연 기회를 찾아보세요</p>
@@ -141,7 +145,7 @@ export default function RegisterPage() {
                     <label htmlFor="email">이메일<span>*</span></label>
                     <div className="checkContainer">
                         <input onChange={(e) => setEmail(e.target.value)} value={email} id="email" type="email" required />
-                        <button className="checkButton" style={!email ? {backgroundColor: '#BDBDBD'}  : {}} onClick={email ? handleEmailCodeGet : ''}>이메일 인증</button>
+                        <button className="checkButton" style={!email || email == emailAtCode ? {backgroundColor: '#BDBDBD'}  : {}} onClick={email && emailAtCode != email ? handleEmailCodeGet : null}>이메일 인증</button>
                     </div>
                     <p>{messages.emailError}</p>
                 </div>
@@ -186,7 +190,9 @@ export default function RegisterPage() {
             </div>
             <div className="registerFooter">
                 <LoginButton onClick={handleRegister} type={allChecked ? 'active' : 'inactive'} text='가입하기' />
-                <p>* 인증 코드가 오지 않았나요? <button onClick={handleEmailCodeGet}>인증번호 재전송</button></p>
+                {
+                    codeSent ? <p>* 인증 코드가 오지 않았나요? <button onClick={handleEmailCodeGet}>인증번호 재전송</button></p> : ''
+                }
             </div>
         </>
     )

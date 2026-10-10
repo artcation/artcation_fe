@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
 import './MyApplicationsPage.css'
 import StatusIcon from "../../components/StatusIcon";
 import FilterButtons from "../../components/FilterButtons";
+import axiosInstance from "../../../api/axiosInstance";
 
 export default function MyApplicationsPage() {
     const [filters, setFilters] = useState({ filter: null, orderBy: 'PERFORMANCE_DATE' });
@@ -36,6 +37,19 @@ export default function MyApplicationsPage() {
         setCurrentPage(pageNumber);
         handleGetPerformances(pageNumber);
     }
+
+    async function handleMyApplications() {
+        try {
+            const response = await axiosInstance.get('/artist/applications')
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        handleMyApplications();
+    }, []);
 
     return (
         <>

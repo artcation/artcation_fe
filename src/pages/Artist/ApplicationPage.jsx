@@ -1,10 +1,37 @@
+import axiosInstance from "../../../api/axiosInstance";
 import BottomButton from "../../components/bottomButton";
 import './ApplicationPage.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 export default function ApplicationPage() {
     const [portfolio, setPortfolio] = useState('');
     const [request, setRequest] = useState('');
+    const [info, setInfo] = useState('');
+    const { performanceId } = useParams();
+
+    const GENRES = {
+        'CLASSIC': '클래식',
+        'POPULAR': '대중음악',
+        'JAZZ': '재즈',
+        'KOREAN_TRADITIONAL': '국악'
+    }
+
+    async function handleInfoGet() {
+        try {
+            const response = await axiosInstance.get(
+                `/performances/${performanceId}/brief`
+            )
+            setInfo(response.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        handleInfoGet();
+    }, [performanceId])
+
 
     return (
         <>
@@ -19,16 +46,20 @@ export default function ApplicationPage() {
                     <h2>공연 정보</h2>
                     <div className="postingPerformanceInfo">
                         <div>
-                            공연일시
+                            <div>공연일시</div>
+                            <div>{info.performanceDate} ({new Date(info.performanceDate).toLocaleDateString('ko-KR', { weekday: 'short' })}) {info.startTime}</div>
                         </div>
                         <div>
-                            장소명
+                            <div>장소명</div>
+                            <div>{info.placeName}</div>
                         </div>
                         <div>
-                            러닝타임
+                            <div>러닝타임</div>
+                            <div>{info.runningTime}분</div>
                         </div>
                         <div>
-                            장르
+                            <div>장르</div>
+                            <div>{GENRES[info.genre]}</div>
                         </div>
                     </div>
                 </div>
