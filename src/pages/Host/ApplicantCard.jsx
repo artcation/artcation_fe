@@ -5,9 +5,9 @@ function formatDate(date) {
     return date.replaceAll('-','. ')
 }
 
-export default function ApplicantCard({ applicant }) {
+export default function ApplicantCard({ applicant, onClick }) {
     return (
-        <div className="applicantCard">
+        <div className="applicantCard" onClick={onClick}>
             <div></div>
             <div>
                 <div>{applicant.teamName}</div>

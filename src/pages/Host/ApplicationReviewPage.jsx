@@ -33,6 +33,7 @@ export default function ApplicationReviewPage() {
     const [totalPages, setTotalPages] = useState(1);
     const [filter, setFilter] = useState(null)
     const [popup, setPopup] = useState('')
+    const [selectedId, setSelectedId] = useState(null);
 
     useEffect(() => {
         async function getSummary() {
@@ -126,13 +127,19 @@ export default function ApplicationReviewPage() {
                     <div className="reviewBody">
                         <div className="applicantList">
                             {applicants.map((applicant) => (
-                                <ApplicantCard key={applicant.applicationId} applicant={applicant} />
+                                <ApplicantCard 
+                                key={applicant.applicationId} 
+                                onClick={() => setSelectedId(applicant.applicationId)}
+                                applicant={applicant} />
                             ))}
                             <Pagination onClick={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
                         </div>
 
                         <div className="reviewDetailColumn">
-                            <ApplicantDetail />
+                            {selectedId
+                                ? <ApplicantDetail recruitmentId={id} applicationId={selectedId} />
+                                : <div className="applicantDetailEmpty">왼쪽 목록에서 지원자를 선택해 주세요.</div>
+                            }
                             <div className="reviewActions">
                                 <button className="reviewDraftBtn" onClick={() => setPopup('saved')}>임시 저장</button>
                                 <button className="reviewSaveBtn" onClick={() => setPopup('sent')}>결과 저장하기</button>

@@ -149,3 +149,11 @@
 .reviewSaveBtn {
     background: var(--primary-color);
 }
+
+.applicantDetailEmpty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    color: #9E9E9E;
+}
