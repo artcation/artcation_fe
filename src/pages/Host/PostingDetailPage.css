@@ -34,3 +34,6 @@
     background: var(--primary-color);
     color: white;
 }
+.postingDetailForm {
+    display: contents;
+}

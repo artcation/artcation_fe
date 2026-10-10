@@ -1,10 +1,11 @@
 import BottomButton from '../../components/BottomButton'
-import PostingForm from './PostingForm'
 import './PostingCreatePage.css'
 import { useNavigate } from 'react-router';
 import { hostPostingDetailPath } from '../../routes';
 import axiosInstance from '../../../api/axiosInstance';
 import { useRef } from 'react'
+import PostingForm from './PostingForm'
+import { toRecruitmentBody } from './recruitmentBody'
 
 export default function PostingCreatePage() {
     const navigate = useNavigate();
@@ -12,15 +13,9 @@ export default function PostingCreatePage() {
 
     async function handleSubmit() {
         if (!formRef.current.reportValidity()) return;
-        const data = Object.fromEntries(new FormData(formRef.current));
 
         try {
-            const response = await axiosInstance.post('/host/recruitments', {
-                ...data,
-                runningTime: Number(data.runningTime),
-                recruitTeamCount: Number(data.recruitTeamCount),
-                budget: data.budget ? Number(data.budget.replaceAll(',', '')) : undefined,
-            });
+            const response = await axiosInstance.post('/host/recruitments', toRecruitmentBody(formRef.current));
             navigate(hostPostingDetailPath(response.data.data.recruitmentId));
         } catch (error) {
             alert(error.response?.data?.message ?? '공고 등록에 실패했습니다.');
