@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import StatusIcon from '../../components/StatusIcon'
 import { HOST_POSTING_CREATE, hostPostingDetailPath, hostApplicationReviewPath } from '../../routes'
 import Pagination from '../../components/Pagination'
+import FilterButtons from '../../components/FilterButtons'
 import './MyPostingsPage.css'
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../../api/axiosInstance'
@@ -23,6 +24,7 @@ export default function MyPostingsPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [sort, setSort] = useState('RECENT');
+    const [filters, setFilters] = useState({ filter: null });
 
     useEffect(() => {
         async function getSummary() {
@@ -42,7 +44,8 @@ export default function MyPostingsPage() {
                 const response = await axiosInstance.get('/host/recruitments', {
                     params:{
                         sort: sort,
-                        page: currentPage, 
+                        page: currentPage,
+                        status: filters.filter ?? undefined,
                     },
                 })
                 setPostings(response.data.data.content);
@@ -52,20 +55,17 @@ export default function MyPostingsPage() {
             }
         }
         getPostings();
-    }, [sort, currentPage])
+    }, [sort, currentPage, filters.filter])
 
     function handleSortChange(e) {
         setSort(e.target.value);
         setCurrentPage(1);
     }
 
-    const summaryCards = [
-        { label: '전체', count: summary.total },
-        { label: '확정', count: summary.confirmed },
-        { label: '모집중', count: summary.recruiting },
-        { label: '검토중', count: summary.reviewing },
-        { label: '취소', count: summary.canceled },
-    ]
+    function handleFilterChange(next) {
+        setFilters(next);
+        setCurrentPage(1);
+    }
 
     return (
         <>
@@ -80,14 +80,7 @@ export default function MyPostingsPage() {
                     <li>지원자가 있는 공고는 지원자 검토가 시작된 이후 수정·삭제가 제한될 수 있습니다.</li>
                 </ul>
 
-                <div className="myPostingsSummary">
-                    {summaryCards.map((item) => (
-                        <div key={item.label} className={item.label == '전체' ? 'summaryCard summaryCardActive' : 'summaryCard'}>
-                            <div>{item.label}</div>
-                            <div>{item.count}</div>
-                        </div>
-                    ))}
-                </div>
+                <FilterButtons data={summary} filters={filters} setFilters={handleFilterChange} type="host" />
 
                 <div className="myPostingsList">
                     <div>
