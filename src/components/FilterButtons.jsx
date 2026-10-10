@@ -12,13 +12,13 @@ export default function FilterButtons({filters, setFilters, type, data}) {
                 <div>확정</div>
                 <div>{data.confirmed}</div>
             </button>
-            <button className={filters.filter == 'SELECTED' ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: 'SELECTED'})}>
+            <button className={filters.filter == (type == 'artist' ? 'SELECTED' : 'RECRUITING') ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: type == 'artist' ? 'SELECTED' : 'RECRUITING'})}>
                 <div>{type == 'artist' ? '선정' : '모집중'}</div>
                 <div>{type == 'artist' ? data.selected : data.recruiting}</div>
             </button>
-            <button className={filters.filter == 'APPLIED' ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: 'APPLIED'})}>
+            <button className={filters.filter == (type == 'artist' ? 'APPLIED' : 'IN_REVIEW') ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: type == 'artist' ? 'APPLIED' : 'IN_REVIEW'})}>
                 <div>{type == 'artist' ? '지원 완료' : '검토중'}</div>
-                <div>{data.applied}</div>
+                <div>{type == 'artist' ? data.applied : data.reviewing}</div>
             </button>
             <button className={filters.filter == 'REJECTED_OR_CANCELED' | filters.filter == 'CANCELED' ? 'selectedFilter' : ''} onClick={() => type == 'artist' ? setFilters({...filters, filter: 'REJECTED_OR_CANCELED'}) : setFilters({...filters, filter: 'CANCELED'})}>
                 <div>{type == 'artist' ? '미선정·취소' : '취소'}</div>
