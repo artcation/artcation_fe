@@ -4,6 +4,8 @@ import './ResultPage.css'
 import character_congrats from '../../assets/character_congrats.png'
 
 export default function ResultPage() {
+    
+
     return (
         <>
             <div className="postingPage applicationPage resultPage">
