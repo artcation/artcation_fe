@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react'
 import './ApplicantDetail.css'
 import axiosInstance from '../../../api/axiosInstance'
 
-const REVIEW_RESULTS = ['선정', '보류', '미선정']
+const REVIEW_RESULTS = [
+    { value: 'SELECTED', label: '선정' },
+    { value: 'ON_HOLD', label: '보류' },
+    { value: 'REJECTED', label: '미선정' },
+]
 
 function formatDate(date) {
     return date.replaceAll('-', '. ')
 }
 
-export default function ApplicantDetail({recruitmentId, applicationId}) {
-    const [reviewResult, setReviewResult] = useState('선정')
+export default function ApplicantDetail({recruitmentId, applicationId, changedStatus, onReviewChange}) {
     const [detail, setDetail] = useState(null)
 
     useEffect(() => {
@@ -26,6 +29,8 @@ export default function ApplicantDetail({recruitmentId, applicationId}) {
 
     if (!detail) return null;
 
+    const reviewStatus = changedStatus ?? detail.reviewStatus;
+
     return (
         <div className="applicantDetail">
             <div className="applicantDetailHeader">
@@ -37,10 +42,10 @@ export default function ApplicantDetail({recruitmentId, applicationId}) {
                     </div>
                 </div>
                 <div className="reviewToggle">
-                    {REVIEW_RESULTS.map((name) => (
-                        <button key={name} className={reviewResult == name ? 'toggleActive' : ''} 
-                            onClick={() => setReviewResult(name)}>
-                            {name}
+                    {REVIEW_RESULTS.map((item) => (
+                        <button key={item.value} className={reviewStatus == item.value ? 'toggleActive' : ''}
+                            onClick={() => onReviewChange(applicationId, item.value)}>
+                            {item.label}
                         </button>
                     ))}
                 </div>

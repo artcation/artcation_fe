@@ -34,6 +34,8 @@ export default function ApplicationReviewPage() {
     const [filter, setFilter] = useState(null)
     const [popup, setPopup] = useState('')
     const [selectedId, setSelectedId] = useState(null);
+    const [changes, setChanges] = useState({});
+    const [reloadKey, setReloadKey] = useState(0);
 
     useEffect(() => {
         async function getSummary() {
@@ -45,7 +47,7 @@ export default function ApplicationReviewPage() {
             }
         
         } getSummary();
-    }, [id])
+    }, [id, reloadKey])
 
     useEffect(() => {
         async function getApplicants() {
@@ -63,7 +65,30 @@ export default function ApplicationReviewPage() {
             }
         }
         getApplicants();
-    }, [id, filter, currentPage]);
+    }, [id, filter, currentPage, reloadKey]);
+
+    function handleReviewChange(applicationId, reviewStatus) {
+        setChanges({ ...changes, [applicationId]: reviewStatus });
+    }
+
+    async function saveResults(type) {
+        try {
+            const response = await axiosInstance.get(`/host/recruitments/${id}/applications`, {
+                params: { limit: 1000 },
+            });
+            const results = response.data.data.content
+                .filter((a) => a.reviewStatus !== 'CONFIRMED')
+                .map((a) => ({
+                    applicationId: a.applicationId,
+                    reviewStatus: changes[a.applicationId] ?? a.reviewStatus,
+                }));
+            await axiosInstance.post(`/host/recruitments/${id}/applications/results/${type}`, { results });
+            setReloadKey(reloadKey + 1);
+            setPopup(type === 'draft' ? 'saved' : 'sent');
+        } catch (error) {
+            alert(error.response?.data?.message ?? '저장에 실패했습니다.');
+        }
+    }
 
     if(!summary) return null;
 
@@ -130,19 +155,24 @@ export default function ApplicationReviewPage() {
                                 <ApplicantCard 
                                 key={applicant.applicationId} 
                                 onClick={() => setSelectedId(applicant.applicationId)}
-                                applicant={applicant} />
+                                applicant={{ ...applicant, reviewStatus: changes[applicant.applicationId] ?? applicant.reviewStatus }} />
                             ))}
                             <Pagination onClick={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
                         </div>
 
                         <div className="reviewDetailColumn">
                             {selectedId
-                                ? <ApplicantDetail recruitmentId={id} applicationId={selectedId} />
+                                ? <ApplicantDetail
+                                    recruitmentId={id}
+                                    applicationId={selectedId}
+                                    changedStatus={changes[selectedId]}
+                                    onReviewChange={handleReviewChange}
+                                  />
                                 : <div className="applicantDetailEmpty">왼쪽 목록에서 지원자를 선택해 주세요.</div>
                             }
                             <div className="reviewActions">
-                                <button className="reviewDraftBtn" onClick={() => setPopup('saved')}>임시 저장</button>
-                                <button className="reviewSaveBtn" onClick={() => setPopup('sent')}>결과 저장하기</button>
+                                <button className="reviewDraftBtn" onClick={() => saveResults('draft')}>임시 저장</button>
+                                <button className="reviewSaveBtn" onClick={() => saveResults('select')}>결과 저장하기</button>
                             </div>
                         </div>
                     </div>
