@@ -176,3 +176,12 @@
 .postingApplicantCount > div:first-child {
     color: #424242;
 }
+
+.postingApplicantTotal a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.postingApplicantTotal a:hover {
+    text-decoration: underline;
+}

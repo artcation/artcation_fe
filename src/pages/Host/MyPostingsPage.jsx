@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import StatusIcon from '../../components/StatusIcon'
-import { HOST_POSTING_CREATE, hostPostingDetailPath } from '../../routes'
+import { HOST_POSTING_CREATE, hostPostingDetailPath, hostApplicationReviewPath } from '../../routes'
 import Pagination from '../../components/Pagination'
 import './MyPostingsPage.css'
 import { useEffect, useState } from 'react'
@@ -121,7 +121,11 @@ export default function MyPostingsPage() {
                                     <td>{formatDate(posting.performanceDate)}</td>
                                     <td>{formatDate(posting.applicationDeadline)}</td>
                                     <td className="postingApplicantTotal">
-                                        <div>{posting.applicantCount ?? '-'}</div>
+                                        <div>
+                                            {posting.availableActions?.includes('REVIEW_APPLICATIONS')
+                                                ? <Link to={hostApplicationReviewPath(posting.recruitmentId)}>{posting.applicantCount}</Link>
+                                                : (posting.applicantCount ?? '-')}
+                                        </div>
                                         <div>전체 지원자</div>
                                     </td>
                                     <td className="postingApplicantCount">
