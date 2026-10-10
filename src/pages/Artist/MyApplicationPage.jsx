@@ -20,8 +20,7 @@ export default function MyApplicationPage() {
         try {
             const response = await axiosInstance.get(`/artist/applications/${applicationId}`)
             setApplicationInfo(response.data.data);
-            console.log(response.data.data)
-            setApplicationInputs({portfolio: response.data.data.portfolio, performancePlan: response.data.data.performancePlan, requestToHost: response.data.data.requestToHost});
+            setApplicationInputs({teamName: response.data.data.teamName, portfolio: response.data.data.portfolio, performancePlan: response.data.data.performancePlan, requestToHost: response.data.data.requestToHost});
         } catch (error) {
             console.log(error.response.data)
         }
@@ -39,6 +38,7 @@ export default function MyApplicationPage() {
     async function handleApplicationEdit() {
         try {
             const response = await axiosInstance.put(`/artist/applications/${applicationId}`, {
+                teamName: applicationInputs.teamName,
                 portfolio: applicationInputs.portfolio,
                 performancePlan: applicationInputs.performancePlan,
                 requestToHost: applicationInputs.requestToHost
@@ -78,6 +78,16 @@ export default function MyApplicationPage() {
                 </div>
                 <div className="applicationInputs">
                     <h2>지원 내용</h2>
+                    <div>
+                        <h3>팀명<span>*</span></h3>
+                        {
+                            isEditing ?
+                            <input value={applicationInputs?.teamName} onChange={(e) => setApplicationInputs({...applicationInputs, teamName: e.target.value})} name="" id="portfolio" /> :
+                            <div>
+                                {applicationInfo?.teamName}
+                            </div>
+                        }
+                    </div>
                     <div>
                         <h3>내 포트폴리오<span>*</span></h3>
                         {
