@@ -83,6 +83,14 @@
     color: #757575;
 }
 
+.defaultContent tr {
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.defaultContent tr:last-child {
+    border-bottom: none;
+}
+
 .bottomBar {
     display: flex;
     justify-content: center;

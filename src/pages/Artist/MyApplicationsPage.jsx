@@ -6,28 +6,42 @@ import FilterButtons from "../../components/FilterButtons";
 import axiosInstance from "../../../api/axiosInstance";
 
 export default function MyApplicationsPage() {
-    const [filters, setFilters] = useState({ filter: null, orderBy: 'PERFORMANCE_DATE' });
+    const [filters, setFilters] = useState({ filter: null, orderBy: 'RECENT' });
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [applications, setApplications] = useState(null);
+    const [summary, setSummary] = useState({});
 
-    async function handleGetPerformances(pageNumber=1) {
+    const REGIONS = {
+        'DAEJEON': '대전',
+        'CHUNGBUK': '충북',
+        'CHUNGNAM': '충남'
+    };
+
+    async function handleGetApplications(pageNumber=1) {
         try {
             const response = await axiosInstance.get(
-                '/performances', {
+                '/artist/applications', {
                     params: {
                         page: pageNumber,
-                        date: filters.dateFrom ?? null,
-                        keyword: searchKeyword ?? null,
+                        status: filters.filter ?? null,
                         sort: filters.orderBy,
-                        regions: filters.regions?.map((r) => REGION_MAP[r]),
-                        genres: filters.genres?.map((g) => GENRE_MAP[g]),
                     },
                     paramsSerializer: { indexes: null }
                 }
             )
-            setPerformances(response.data.data.content);
+            setApplications(response.data.data.content);
             setTotalPages(response.data.data.totalPages)
             console.log(response.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function handleApplicationSummary() {
+        try {
+            const response = await axiosInstance.get('/artist/applications/summary');
+            setSummary(response.data.data);
         } catch (error) {
             console.log(error);
         }
@@ -38,17 +52,12 @@ export default function MyApplicationsPage() {
         handleGetPerformances(pageNumber);
     }
 
-    async function handleMyApplications() {
-        try {
-            const response = await axiosInstance.get('/artist/applications')
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    useEffect(() => {
+        handleGetApplications();
+    }, [filters]);
 
     useEffect(() => {
-        handleMyApplications();
+        handleApplicationSummary();
     }, []);
 
     return (
@@ -60,11 +69,11 @@ export default function MyApplicationsPage() {
                     <li>모집이 마감된 이후에는 지원서 수정·취소가 제한됩니다.</li>
                     <li>선정 시 3일 이내에 확정하지 않으면 자동 취소됩니다.</li>
                 </ul>
-                <FilterButtons filters={filters} setFilters={setFilters} type={"artist"} />
+                <FilterButtons data={summary} filters={filters} setFilters={setFilters} type={"artist"} />
                 <div className="searchContainer">
                     <div className="selectContainer">
                         <select onChange={(e) => setFilters({...filters, orderBy: e.target.value})} value={filters.orderBy}>
-                            <option>최근 지원 순</option>
+                            <option value="RECENT">최근 지원 순</option>
                             <option value="PERFORMANCE_DATE">공연 일시 순</option>
                             <option value="DEADLINE">마감 임박 순</option>
                         </select>
@@ -80,34 +89,40 @@ export default function MyApplicationsPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <div>
-                                            <StatusIcon text={'CONFIRMED'} />
-                                        </div>
-                                        <div>
-                                            <div>공연명</div>
-                                            <div>대전 유성구 · 00 요양원</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="tableDateTime">
-                                        <div>2026. 10. 22</div>
-                                        <div>(14:00)</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    2026. 10. 01
-                                </td>
-                                <td>
-                                    2026. 10. 15
-                                </td>
-                                <td>
-                                    공연 안내
-                                </td>
-                            </tr>
+                            {
+                                applications?.map((a) => (
+                                    <tr key={a.applicationId}>
+                                        <td>
+                                            <div>
+                                                <div>
+                                                    <StatusIcon text={a.status} />
+                                                </div>
+                                                <div>
+                                                    <div>{a.title}</div>
+                                                    <div>{REGIONS[a.region]} · {a.hostName}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="tableDateTime">
+                                                <div>{a.performanceDate}</div>
+                                                <div>({a.startTime})</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {a.appliedAt}
+                                        </td>
+                                        <td>
+                                            {a.applicationDeadline}
+                                        </td>
+                                        <td style={ a.status == 'CANCELED' ? {textDecoration: 'none'} : null }>
+                                            {
+                                                ['CONFIRMED', 'SELECTED', 'APPLIED'].includes(a.status) ? '지원서 확인' : (a.status == 'CANCELED' ? '-' : '공연 안내')
+                                            }
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                     <Pagination onClick={handleNextPage} currentPage={currentPage} totalPages={totalPages}  />

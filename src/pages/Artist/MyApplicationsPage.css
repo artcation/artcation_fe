@@ -39,6 +39,11 @@
 .myApplicationsPage tbody tr td:first-child > div > div:last-child > div:last-child, .myApplicationsPage .tableDateTime > div:last-child {
     color: #9E9E9E;
     font-size: 0.8rem;
+    text-align: left;
+}
+
+.myApplicationsPage td:last-child {
+    text-decoration: underline;
 }
 
 .tableDateTime {

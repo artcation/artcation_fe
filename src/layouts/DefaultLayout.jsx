@@ -3,7 +3,7 @@ import logo from '../assets/logo.png';
 import './DefaultLayout.css';
 import { useNavigate } from 'react-router';
 import axiosInstance from '../../api/axiosInstance';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { LoginContext } from '../context/LoginContext';
 
 export default function DefaultLayout() {
