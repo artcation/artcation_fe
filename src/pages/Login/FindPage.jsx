@@ -71,9 +71,11 @@ export default function FindPage() {
             </div>
             <div className="registerFooter">
                 <LoginButton onClick={handleFind} type={type == 'id' ? (email ? 'active' : 'inactive') : (email && id ? 'active' : 'inactive')} text={'이메일 발송'} />
-                <LoginButton onClick={() => navigate('/login')} find={true} text={'로그인 화면으로 돌아가기'} />
-                <p>* 인증 코드가 오지 않았나요? <button onClick={handleFind}>인증번호 재전송</button></p>
+                {
+                    codeSent ? <p>* 인증 코드가 오지 않았나요? <button onClick={handleFind}>인증번호 재전송</button></p> : ''
+                }
             </div>
+            <button onClick={() => navigate('/login')} className="loginReturn">← 로그인 화면으로 돌아가기</button>
         </>
     )
 }
