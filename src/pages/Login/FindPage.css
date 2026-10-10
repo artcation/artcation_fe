@@ -1,0 +1,13 @@
+.loginReturn {
+    position: absolute;
+    bottom: -2.4rem;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    color: #757575;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: underline;
+    border: none;
+    background: transparent;
+}
