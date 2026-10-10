@@ -74,10 +74,10 @@ export default function PostingForm( {posting = {}}) {
                         <div>
                             <select id="genre" defaultValue={posting.genre || ''} required>
                                 <option value="" disabled>희망장르</option>
-                                <option>클래식</option>
-                                <option>대중음악</option>
-                                <option>재즈</option>
-                                <option>국악</option>
+                                <option value="CLASSIC">클래식</option>
+                                <option value="POPULAR">대중음악</option>
+                                <option value="JAZZ">재즈</option>
+                                <option value="KOREAN_TRADITIONAL">국악</option>
                             </select>
                             <input className="recruitTeamCount" type="number" min="1" defaultValue={posting.recruitTeamCount} placeholder="모집 팀 수" />
                         </div>
