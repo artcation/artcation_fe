@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './ApplicationReviewPage.css'
-import { MOCK_POSTING_DETAIL } from './mockData'
 import StatusIcon from '../../components/StatusIcon'
 import Pagination from '../../components/Pagination'
 import NoticePopup from '../../components/NoticePopup'
@@ -8,53 +7,104 @@ import ApplicantCard from './ApplicantCard'
 import ApplicantDetail from './ApplicantDetail'
 import icon_popup_sent from '../../assets/icon_popup_sent.png'
 import icon_popup_saved from '../../assets/icon_popup_saved.png'
+import { useEffect } from 'react'
+import { useParams } from 'react-router'
+import axiosInstance from '../../../api/axiosInstance'
 
-const FILTERS = ['전체', '확정', '선정', '보류', '미선정']
+
+const FILTERS = [
+    {value: null, label: '전체'},
+    {value: 'CONFIRMED', label: '확정'},
+    {value: 'SELECTED', label: '선정'},
+    {value: 'ON_HOLD', label: '보류'},
+    {value: 'REJECTED', label: '미선정'},
+]
+
+function formatDate(date) {
+    return date.replaceAll('-','. ')
+}
 
 export default function ApplicationReviewPage() {
-    
-    const [filter, setFilter] = useState('전체')
+
+    const { id } = useParams();
+    const [summary, setSummary] = useState(null);
+    const [applicants, setApplicants] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [filter, setFilter] = useState(null)
     const [popup, setPopup] = useState('')
+
+    useEffect(() => {
+        async function getSummary() {
+            try {
+                const response = await axiosInstance.get(`/host/recruitments/${id}/applications/summary`);
+                setSummary(response.data.data);
+            } catch (error) {
+                console.log(error);
+            }
+        
+        } getSummary();
+    }, [id])
+
+    useEffect(() => {
+        async function getApplicants() {
+            try {
+                const response = await axiosInstance.get(`/host/recruitments/${id}/applications`, {
+                    params: {
+                        reviewStatus: filter ?? undefined,
+                        page: currentPage,
+                    }
+                });
+                setApplicants(response.data.data.content);
+                setTotalPages(response.data.data.totalPages);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getApplicants();
+    }, [id, filter, currentPage]);
+
+    if(!summary) return null;
 
     return (
         <>
             <div>
                 <div className="postingReviewHeader">
-                    <StatusIcon text={MOCK_POSTING_DETAIL.status} />
-                    <h1>{MOCK_POSTING_DETAIL.title}</h1>
+                    <StatusIcon text={summary.recruitmentStatus} />
+                    <h1>{summary.recruitmentTitle}</h1>
                 </div>
                 <div className="reviewSummary">
                     <div className="postingSummaryCard">
                         <div>
                             <div>
                                 <div>공연일자</div>
-                                <div>2026. 10. 22</div>
+                                <div>{formatDate(summary.performanceDate)}</div>
                             </div>
                             <div>
                                 <div>지원 마감일</div>
-                                <div>2026. 10. 15</div>
+                                <div>{formatDate(summary.applicationDeadline)}</div>
                             </div>
                         </div>
                         <div>
                             <div className="summaryHighlight">
                                 <div>목표 모집 팀</div>
-                                <div>2</div>
+                                <div>{summary.recruitTeamCount}</div>
                             </div>
                             <div className="summaryHighlight">
                                 <div>확정</div>
-                                <div>1</div>
+                                <div>{summary.confirmed}</div>
                             </div>
                             <div>
                                 <div>선정 완료</div>
-                                <div>2</div>
+                                <div>{summary.selected}</div>
                             </div>
                             <div>
                                 <div>보류 / 미선정</div>
-                                <div>12</div>
+                                <div>{summary.notSelected}</div>
                             </div>
                             <div className="summaryTotal">
                                 <div>전체</div>
-                                <div>13</div>
+                                <div>{summary.total}</div>
                             </div>
                         </div>
                     </div>
@@ -63,22 +113,22 @@ export default function ApplicationReviewPage() {
                 <div className="reviewMain">
                     <h2>지원자 심사 및 결과 처리</h2>
                     <div className="reviewFilters">
-                        {FILTERS.map((name) => (
+                        {FILTERS.map((item) => (
                             <button
-                                key={name}
-                                className={filter == name ? 'filterActive' : ''}
-                                onClick={() => setFilter(name)}
+                                key={item.label}
+                                className={filter == item.value ? 'filterActive' : ''}
+                                onClick={() => {setFilter(item.value); setCurrentPage(1);}}
                             >
-                                {name}
+                                {item.label}
                             </button>
                         ))}
                     </div>
                     <div className="reviewBody">
                         <div className="applicantList">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                                <ApplicantCard key={item} />
+                            {applicants.map((applicant) => (
+                                <ApplicantCard key={applicant.applicationId} applicant={applicant} />
                             ))}
-                            <Pagination onClick={() => {}} currentPage={1} totalPages={2} />
+                            <Pagination onClick={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
                         </div>
 
                         <div className="reviewDetailColumn">
