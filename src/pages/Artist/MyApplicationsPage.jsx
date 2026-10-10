@@ -79,7 +79,10 @@ export default function MyApplicationsPage() {
                                     </div>
                                 </td>
                                 <td>
-                                    2026. 10. 22 (14:00)
+                                    <div className="tableDateTime">
+                                        <div>2026. 10. 22</div>
+                                        <div>(14:00)</div>
+                                    </div>
                                 </td>
                                 <td>
                                     2026. 10. 01
