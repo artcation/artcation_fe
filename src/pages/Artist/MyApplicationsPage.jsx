@@ -78,7 +78,7 @@ export default function MyApplicationsPage() {
                             <option value="DEADLINE">마감 임박 순</option>
                         </select>
                     </div>
-                    <table>
+                    <table className="applicationsTable">
                         <thead>
                             <tr>
                                 <th scope="col">공고명</th>
