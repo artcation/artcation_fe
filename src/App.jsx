@@ -5,7 +5,6 @@ import { LoginContext } from './context/LoginContext'
 import MainPage from './pages/MainPage'
 import LoginLayout from './layouts/LoginLayout'
 import DefaultLayout from './layouts/DefaultLayout'
-import ExamplePage from './pages/ExamplePage'
 import LoginPage from './pages/Login/LoginPage'
 import RegisterPage from './pages/Login/RegisterPage'
 import FindPage from './pages/Login/FindPage'
@@ -44,9 +43,7 @@ function App() {
           <Route path='/reset-password' element={<ResetPage />} />
         </Route>
         <Route element={<DefaultLayout />}>
-          <Route path='/example' element={<ExamplePage />} />
-          <Route path='/artist' />
-          <Route path='/artist/explore' element={<ExplorePage />} />
+          <Route path='/explore' element={<ExplorePage />} />
           <Route path='/artist/posting' element={<PostingPage />} />
           <Route path='/artist/result' element={<ResultPage />} />
           <Route path='/artist/application' element={<ApplicationPage />} />

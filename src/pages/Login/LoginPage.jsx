@@ -22,7 +22,15 @@ export default function LoginPage() {
                 password: password
             })
             setIsLoggedIn(true);
-            navigate('/');
+            const response_2 = await axiosInstance.get('/users/me');
+            if (response_2.data.data.role == "ARTIST") {
+                navigate('/explore');
+            } else if (response_2.data.data.role = "HOST") {
+                // 호스트 주소 정리 후 수정
+                navigate('/');
+            } else {
+                navigate('/');
+            }
         } catch (error) {
             console.log(error);
             setErrors(error.response.data.message);
