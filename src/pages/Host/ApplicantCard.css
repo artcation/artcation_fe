@@ -40,7 +40,8 @@
     margin-left: auto;
 }
 
-.applicantCard .statusIcon {
+.applicantCard .statusIcon,
+.applicantDetailHeader .statusIcon {
     width: 3.875rem;
     min-width: 0;
     height: 1.625rem;

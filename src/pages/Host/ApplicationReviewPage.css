@@ -126,10 +126,19 @@
     gap: 1.5rem;
 }
 
-.reviewActions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
+.reviewActions .reviewDraftBtn {
+    border: 1.5px solid var(--primary-color);
+    background: var(--sub-color);
+    color: var(--primary-color);
+}
+
+.reviewActions .reviewSaveBtn {
+    background: var(--primary-color);
+}
+
+.reviewActions .reviewSaveBtn:disabled {
+    background: #BDBDBD;
+    cursor: default;
 }
 
 .reviewActions button {
@@ -140,14 +149,13 @@
     color: white;
     font-size: 1rem;
     cursor: pointer;
+    box-shadow: 0px 4px 4px 0px #00000040;
 }
 
-.reviewDraftBtn {
-    background: #757575;
-}
-
-.reviewSaveBtn {
-    background: var(--primary-color);
+.reviewActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
 }
 
 .applicantDetailEmpty {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './ApplicantDetail.css'
 import axiosInstance from '../../../api/axiosInstance'
+import StatusIcon from '../../components/StatusIcon'
 
 const REVIEW_RESULTS = [
     { value: 'SELECTED', label: '선정' },
@@ -42,14 +43,18 @@ export default function ApplicantDetail({recruitmentId, applicationId, changedSt
                         <div>공연 이력 {detail.performanceCount}회 | 지원: {formatDate(detail.appliedAt)}</div>
                     </div>
                 </div>
-                <div className="reviewToggle">
-                    {REVIEW_RESULTS.map((item) => (
-                        <button key={item.value} className={reviewStatus == item.value ? 'toggleActive' : ''}
-                            onClick={() => onReviewChange(applicationId, item.value)}>
-                            {item.label}
-                        </button>
-                    ))}
-                </div>
+                {detail.reviewStatus === 'CONFIRMED'
+                    ? <StatusIcon text='CONFIRMED' />
+                    : (
+                        <div className="reviewToggle">
+                            {REVIEW_RESULTS.map((item) => (
+                                <button key={item.value} className={reviewStatus == item.value ? 'toggleActive' : ''}
+                                    onClick={() => onReviewChange(applicationId, item.value)}>
+                                    {item.label}
+                                </button>
+                            ))}
+                        </div>                        
+                    )}
             </div>
 
             <div className="applicantSection">

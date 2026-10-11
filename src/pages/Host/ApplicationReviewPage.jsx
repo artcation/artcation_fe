@@ -177,8 +177,10 @@ export default function ApplicationReviewPage() {
                                 : <div className="applicantDetailEmpty">해당하는 지원자가 없습니다.</div>
                             }
                             <div className="reviewActions">
-                                <button className="reviewDraftBtn" onClick={() => saveResults('draft')}>임시 저장</button>
-                                <button className="reviewSaveBtn" onClick={() => saveResults('select')}>결과 저장하기</button>
+                                {summary.recruitmentStatus !== "CONFIRMED" && (
+                                    <button className="reviewDraftBtn" onClick={() => saveResults('draft')}>임시 저장</button>
+                                )}
+                                <button className="reviewSaveBtn" disabled={summary.recruitmentStatus !== 'IN_REVIEW'} onClick={() => saveResults('select')}>결과 저장하기</button>
                             </div>
                         </div>
                     </div>
