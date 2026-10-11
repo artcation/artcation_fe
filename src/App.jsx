@@ -15,7 +15,7 @@ import TermsPage from './pages/Login/TermsPage'
 import ResultPage from './pages/Artist/ResultPage'
 import ApplyPage from './pages/Artist/ApplyPage'
 import MyApplicationPage from './pages/Artist/MyApplicationPage'
-import MyApplicationsPage from './pages/Artist/MyApplicationsPage'
+import ApplicationsPage from './pages/Artist/ApplicationsPage'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
 import PostingCreatePage from './pages/Host/PostingCreatePage'
 import PostingDetailPage from './pages/Host/PostingDetailPage'
@@ -46,8 +46,8 @@ function App() {
           <Route path='/explore' element={<ExplorePage />} />
           <Route path='/posting/:recruitmentId' element={<PostingPage />} />
           <Route path='/apply/:recruitmentId' element={<ApplyPage />} />
+          <Route path='/applications' element={<ApplicationsPage />} />
           <Route path='/artist/result' element={<ResultPage />} />
-          <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/artist/myapplication/:recruitmentId/:applicationId' element={<MyApplicationPage />} />
           <Route path='/host'/>
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />

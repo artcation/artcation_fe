@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
-import './MyApplicationsPage.css'
+import './ApplicationsPage.css'
 import StatusIcon from "../../components/StatusIcon";
 import FilterButtons from "../../components/FilterButtons";
 import axiosInstance from "../../../api/axiosInstance";
@@ -31,8 +31,7 @@ export default function MyApplicationsPage() {
                 }
             )
             setApplications(response.data.data.content);
-            setTotalPages(response.data.data.totalPages)
-            console.log(response.data.data);
+            setTotalPages(response.data.data.totalPages);
         } catch (error) {
             console.log(error);
         }

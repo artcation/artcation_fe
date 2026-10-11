@@ -1,7 +1,6 @@
 import './FilterButtons.css'
 
 export default function FilterButtons({filters, setFilters, type, data}) {
-    console.log(filters);
     return (
         <div className="filterButtons">
             <button className={!filters.filter ? 'selectedFilter' : ''} onClick={() => setFilters({...filters, filter: null})}>
