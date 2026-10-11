@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import PerformanceInfo from "../../components/PerformanceInfo";
 import NoticePopup from "../../components/NoticePopup";
 import character_cancel from "../../assets/character_cancel.png"
+import ResultPage from './ResultPage';
 
 export default function MyApplicationPage() {
     const [isEditing, setIsEditing] = useState(false);
@@ -20,7 +21,6 @@ export default function MyApplicationPage() {
         try {
             const response = await axiosInstance.get(`/artist/applications/${applicationId}`)
             setApplicationInfo(response.data.data);
-            console.log(response.data.data)
             setApplicationInputs({portfolio: response.data.data.portfolio, performancePlan: response.data.data.performancePlan, requestToHost: response.data.data.requestToHost});
         } catch (error) {
             console.log(error.response.data)
@@ -63,6 +63,13 @@ export default function MyApplicationPage() {
         handleApplicationGet();
         handleRecruitmentGet();
     }, [])
+
+
+    if (applicationInfo?.status == 'CONFIRMED') {
+        return (
+            <ResultPage recruitmentInfo={recruitmentInfo} applicationId={applicationId} />
+        )
+    }
 
     return (
         <>
