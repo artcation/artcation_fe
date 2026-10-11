@@ -160,7 +160,7 @@ export default function ExplorePage() {
                                             <div>{p.startTime}</div>
                                         </td>
                                         <td>
-                                            <div className='resultStatus' onClick={() => navigate(`/posting/${p.recruitmentId}`)}>
+                                            <div className='resultStatus' onClick={() => navigate(`/artist/postings/${p.recruitmentId}`)}>
                                                 <StatusIcon text={p.status} />
                                                 <div>{p.title}</div>
                                                 <div>{p.region} · {p.hostName}</div>

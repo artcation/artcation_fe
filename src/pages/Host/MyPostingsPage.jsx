@@ -48,7 +48,6 @@ export default function MyPostingsPage() {
                     },
                 })
                 setPostings(response.data.data.content);
-                console.log(response.data.data.content)
                 setTotalPages(response.data.data.totalPages);
             } catch (error) {
                 console.log(error)

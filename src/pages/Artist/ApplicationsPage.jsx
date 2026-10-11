@@ -99,7 +99,7 @@ export default function ApplicationsPage() {
                                                     <StatusIcon text={a.status} />
                                                 </div>
                                                 <div>
-                                                    <div onClick={() => navigate(`/application/${a.recruitmentId}/${a.applicationId}`)}>{a.title}</div>
+                                                    <div onClick={() => navigate(`/applications/${a.recruitmentId}/${a.applicationId}`)}>{a.title}</div>
                                                     <div>{REGIONS[a.region]} · {a.hostName}</div>
                                                 </div>
                                             </div>
@@ -116,7 +116,7 @@ export default function ApplicationsPage() {
                                         <td>
                                             {a.applicationDeadline}
                                         </td>
-                                        <td onClick={() => navigate(`/application/${a.recruitmentId}/${a.applicationId}`)} style={ a.status == 'CANCELED' ? {textDecoration: 'none'} : null }>
+                                        <td onClick={() => navigate(`/applications/${a.recruitmentId}/${a.applicationId}`)} style={ a.status == 'CANCELED' ? {textDecoration: 'none'} : null }>
                                             {
                                                 ['CONFIRMED', 'SELECTED', 'APPLIED'].includes(a.status) ? '지원서 확인' : (a.status == 'CANCELED' ? '-' : '공연 안내')
                                             }

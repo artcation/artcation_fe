@@ -3,12 +3,13 @@ import logo from '../assets/logo.png';
 import './DefaultLayout.css';
 import { useNavigate } from 'react-router';
 import axiosInstance from '../../api/axiosInstance';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LoginContext } from '../context/LoginContext';
 
 export default function DefaultLayout() {
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+    const [ role, setRole ] = useState('');
 
     function handleLogo() {
         navigate('/');
@@ -27,6 +28,7 @@ export default function DefaultLayout() {
     async function handleIsLoggedIn() {
         try {
             const response = await axiosInstance.get('/users/me');
+            setRole(response.data.data.role)
             setIsLoggedIn(true);
         } catch (error) {
             console.log(error);
@@ -45,9 +47,16 @@ export default function DefaultLayout() {
                 <div className='personalArea'>
                     {
                         isLoggedIn ?
-                        <button onClick={handleLogout}>
-                            로그아웃
-                        </button>
+                        <>
+                            {
+                                role == 'ARTIST' ?
+                                <button onClick={() => navigate('/applications')}>내 지원</button> :
+                                <button onClick={() => navigate('/postings')}>내 공고</button>
+                            }
+                            <button onClick={handleLogout}>
+                                로그아웃
+                            </button>
+                        </>
                         :
                         <button onClick={() => navigate('/login')}>
                             로그인

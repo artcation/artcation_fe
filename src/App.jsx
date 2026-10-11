@@ -43,10 +43,10 @@ function App() {
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path='/explore' element={<ExplorePage />} />
-          <Route path='/posting/:recruitmentId' element={<PostingPage />} />
+          <Route path='/artist/postings/:recruitmentId' element={<PostingPage />} />
           <Route path='/apply/:recruitmentId' element={<ApplyPage />} />
           <Route path='/applications' element={<ApplicationsPage />} />
-          <Route path='/application/:recruitmentId/:applicationId' element={<ApplicationPage />} />
+          <Route path='/applications/:recruitmentId/:applicationId' element={<ApplicationPage />} />
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
           <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />
           <Route path={HOST_POSTING_DETAIL} element={<PostingDetailPage />} />
