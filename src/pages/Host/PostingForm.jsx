@@ -1,6 +1,23 @@
 import './PostingForm.css'
+import { useEffect, useState } from 'react'
+import axiosInstance from '../../../api/axiosInstance'
 
 export default function PostingForm( {posting = {}}) {
+    const [host, setHost] = useState(null);
+
+
+    useEffect(() => {
+        async function getHost() {
+            try{
+                const response = await axiosInstance.get('/host/profile');
+                setHost(response.data.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getHost();
+    },[])
+
     return (
         <>
             <div className="postingSection">
@@ -8,24 +25,24 @@ export default function PostingForm( {posting = {}}) {
                 <div className="hostInfo">
                     <div>
                         <div>주최</div>
-                        <div>00요양원</div>
+                        <div>{host?.hostName}</div>
                     </div>
                     <div></div>
                     <div>
                         <div>연락처</div>
-                        <div>010-1234-5678</div>
+                        <div>{host?.phone}</div>
                     </div>
                     <div>
                         <div>지역</div>
-                        <div>대전 유성구</div>
+                        <div>{host?.region}</div>
                     </div>
                     <div>
                         <div>이메일</div>
-                        <div className="hostEmail">contact@artcation.example</div>
+                        <div className="hostEmail">{host?.email}</div>
                     </div>
                     <div>
                         <div>상세 주소</div>
-                        <div>대전광역시 유성구 대학로 99</div>
+                        <div>{host?.address}</div>
                     </div>
                 </div>
             </div>
