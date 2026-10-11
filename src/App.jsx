@@ -12,9 +12,8 @@ import ResetPage from './pages/Login/ResetPage'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
-import ResultPage from './pages/Artist/ResultPage'
 import ApplyPage from './pages/Artist/ApplyPage'
-import MyApplicationPage from './pages/Artist/MyApplicationPage'
+import ApplicationPage from './pages/Artist/ApplicationPage'
 import ApplicationsPage from './pages/Artist/ApplicationsPage'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
 import PostingCreatePage from './pages/Host/PostingCreatePage'
@@ -47,8 +46,7 @@ function App() {
           <Route path='/posting/:recruitmentId' element={<PostingPage />} />
           <Route path='/apply/:recruitmentId' element={<ApplyPage />} />
           <Route path='/applications' element={<ApplicationsPage />} />
-          <Route path='/artist/result' element={<ResultPage />} />
-          <Route path='/artist/myapplication/:recruitmentId/:applicationId' element={<MyApplicationPage />} />
+          <Route path='/application/:recruitmentId/:applicationId' element={<ApplicationPage />} />
           <Route path='/host'/>
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
           <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />

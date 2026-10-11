@@ -1,14 +1,14 @@
 import { useNavigate, useParams } from "react-router";
 import axiosInstance from "../../../api/axiosInstance";
 import StatusIcon from "../../components/StatusIcon";
-import './MyApplicationPage.css'
+import './ApplicationPage.css'
 import { useEffect, useState } from "react";
 import PerformanceInfo from "../../components/PerformanceInfo";
 import NoticePopup from "../../components/NoticePopup";
 import character_cancel from "../../assets/character_cancel.png"
 import ResultPage from './ResultPage';
 
-export default function MyApplicationPage() {
+export default function ApplicationPage() {
     const [isEditing, setIsEditing] = useState(false);
     const { recruitmentId, applicationId } = useParams();
     const [applicationInfo, setApplicationInfo] = useState(null);
@@ -54,7 +54,7 @@ export default function MyApplicationPage() {
     async function handleApplicationCancel() {
         try {
             const response = await axiosInstance.post(`/artist/applications/${applicationId}/cancel`)
-            navigate('/');
+            navigate('/applications');
         } catch (error) {
             console.log(error);
         }
@@ -75,7 +75,7 @@ export default function MyApplicationPage() {
     return (
         <>
             <div className="applicationPage">
-                <NoticePopup onLeftButtonClick={() => setPopupIsVisible(false)} onRightButtonClick={handleApplicationCancel} mainText={<p>지원을 <span>취소</span>하시겠어요?</p>} type={'cancel'} rightButtonText={'지원 취소'} subText={"취소한 지원서는 복구할 수 없습니다."} visibility={popupIsVisible} image={character_cancel}  />
+                <NoticePopup onLeftButtonClick={() => setPopupIsVisible(false)} onRightButtonClick={handleApplicationCancel} mainText={<>지원을 <span>취소</span>하시겠어요?</>} type={'cancel'} rightButtonText={'지원 취소'} subText={"취소한 지원서는 복구할 수 없습니다."} visibility={popupIsVisible} image={character_cancel}  />
                 <div>
                     <StatusIcon text={applicationInfo?.status} />
                     <h1>{recruitmentInfo?.title}</h1>

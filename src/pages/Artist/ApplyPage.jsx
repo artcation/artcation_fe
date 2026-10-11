@@ -7,7 +7,7 @@ import './ApplyPage.css';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
-export default function ApplicationPage() {
+export default function ApplyPage() {
     const [teamName, setTeamName] = useState('');
     const [portfolio, setPortfolio] = useState('');
     const [plan, setPlan] = useState('');

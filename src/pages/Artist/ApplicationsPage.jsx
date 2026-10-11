@@ -4,13 +4,15 @@ import './ApplicationsPage.css'
 import StatusIcon from "../../components/StatusIcon";
 import FilterButtons from "../../components/FilterButtons";
 import axiosInstance from "../../../api/axiosInstance";
+import { useNavigate } from "react-router";
 
-export default function MyApplicationsPage() {
+export default function ApplicationsPage() {
     const [filters, setFilters] = useState({ filter: null, orderBy: 'RECENT' });
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [applications, setApplications] = useState(null);
     const [summary, setSummary] = useState({});
+    const navigate = useNavigate();
 
     const REGIONS = {
         'DAEJEON': '대전',
@@ -48,7 +50,7 @@ export default function MyApplicationsPage() {
 
     async function handleNextPage(pageNumber) {
         setCurrentPage(pageNumber);
-        handleGetPerformances(pageNumber);
+        handleGetApplications(pageNumber);
     }
 
     useEffect(() => {
@@ -114,7 +116,7 @@ export default function MyApplicationsPage() {
                                         <td>
                                             {a.applicationDeadline}
                                         </td>
-                                        <td style={ a.status == 'CANCELED' ? {textDecoration: 'none'} : null }>
+                                        <td onClick={() => navigate(`/application/${a.recruitmentId}/${a.applicationId}`)} style={ a.status == 'CANCELED' ? {textDecoration: 'none'} : null }>
                                             {
                                                 ['CONFIRMED', 'SELECTED', 'APPLIED'].includes(a.status) ? '지원서 확인' : (a.status == 'CANCELED' ? '-' : '공연 안내')
                                             }
