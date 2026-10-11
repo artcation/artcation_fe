@@ -1,5 +1,5 @@
 import axiosInstance from "../../../api/axiosInstance";
-import BottomButton from "../../components/bottomButton";
+import BottomButton from "../../components/BottomButton";
 import NoticePopup from "../../components/NoticePopup";
 import PerformanceInfo from "../../components/PerformanceInfo";
 import character_applied from "../../assets/character_applied.png"

@@ -5,14 +5,13 @@ import axiosInstance from '../../../api/axiosInstance'
 export default function PostingForm( {posting = {}}) {
     const [host, setHost] = useState(null);
 
-
     useEffect(() => {
         async function getHost() {
             try{
                 const response = await axiosInstance.get('/host/profile');
                 setHost(response.data.data);
             } catch (error) {
-                console.log(error);
+                console.log(error.response.data);
             }
         }
         getHost();

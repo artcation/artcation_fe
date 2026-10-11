@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../api/axiosInstance";
-import BottomButton from "../../components/bottomButton";
+import BottomButton from "../../components/BottomButton";
 import './PostingPage.css';
 import { useNavigate, useParams } from "react-router";
 import StatusIcon from "../../components/StatusIcon";
@@ -23,7 +23,6 @@ export default function PostingPage() {
                 `/recruitments/${recruitmentId}`
             )
             setPostingInfo(response.data.data);
-            console.log(response.data.data)
         } catch (error) {
             console.log(error);
         }

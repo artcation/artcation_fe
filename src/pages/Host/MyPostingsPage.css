@@ -71,9 +71,8 @@
     appearance: none;
     border: none;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23616161' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") right center no-repeat;
-    padding: 0.3rem 1.9375rem 0.3rem 0;
+    padding: 0.3rem 2rem 0.3rem 0;
     color: #616161;
-    font-size: 1rem;
     cursor: pointer;
 }
 
@@ -81,34 +80,7 @@
     color: #616161;
 }
 
-.myPostingsList table {
-    width: 100%;
-    border-top: 1.5px solid #757575;
-    border-collapse: collapse;
-}
-
-.myPostingsList thead {
-    background-color: #F5F5F5;
-    color: #757575;
-}
-
-.myPostingsList th {
-    padding: 1rem;
-    font-size: 0.9rem;
-}
-
-.myPostingsList td {
-    text-align: center;
-    padding: 1.5rem;
-    color: #757575;
-}
-
-.myPostingsList td:nth-child(2), .myPostingsList td:nth-child(3) {
-    width: 16%;
-}
-
 .myPostingsList td.postingApplicantTotal, .myPostingsList td.postingApplicantCount {
-    width: 8%;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     white-space: nowrap;
@@ -184,4 +156,25 @@
 
 .postingApplicantTotal a:hover {
     text-decoration: underline;
+}
+
+.myPostingsList th:nth-child(1) {
+    width: 35%;
+}
+
+.myPostingsList th:nth-child(2) {
+    width: 20%;
+}
+
+.myPostingsList th:nth-child(3) {
+    width: 20%;
+}
+.myPostingsList th:nth-child(4) {
+    width: 25%;
+}
+
+.tableDateTime > div:last-child {
+    color: #9E9E9E;
+    font-size: 0.8rem;
+    text-align: left;
 }

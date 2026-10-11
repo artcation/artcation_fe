@@ -1,4 +1,4 @@
-import BottomButton from "../../components/bottomButton";
+import BottomButton from "../../components/BottomButton";
 import StatusIcon from "../../components/StatusIcon";
 import './ResultPage.css'
 import character_selected from '../../assets/character_selected.png'

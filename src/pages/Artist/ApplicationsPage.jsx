@@ -99,7 +99,7 @@ export default function ApplicationsPage() {
                                                     <StatusIcon text={a.status} />
                                                 </div>
                                                 <div>
-                                                    <div>{a.title}</div>
+                                                    <div onClick={() => navigate(`/application/${a.recruitmentId}/${a.applicationId}`)}>{a.title}</div>
                                                     <div>{REGIONS[a.region]} · {a.hostName}</div>
                                                 </div>
                                             </div>
@@ -107,7 +107,7 @@ export default function ApplicationsPage() {
                                         <td>
                                             <div className="tableDateTime">
                                                 <div>{a.performanceDate}</div>
-                                                <div>({a.startTime})</div>
+                                                <div>{a.startTime}</div>
                                             </div>
                                         </td>
                                         <td>

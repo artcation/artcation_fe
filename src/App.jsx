@@ -4,17 +4,17 @@ import { Route, Routes } from 'react-router'
 import { LoginContext } from './context/LoginContext'
 import MainPage from './pages/MainPage'
 import LoginLayout from './layouts/LoginLayout'
-import DefaultLayout from './layouts/DefaultLayout'
 import LoginPage from './pages/Login/LoginPage'
+import TermsPage from './pages/Login/TermsPage'
 import RegisterPage from './pages/Login/RegisterPage'
 import FindPage from './pages/Login/FindPage'
 import ResetPage from './pages/Login/ResetPage'
+import DefaultLayout from './layouts/DefaultLayout'
 import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
-import TermsPage from './pages/Login/TermsPage'
 import ApplyPage from './pages/Artist/ApplyPage'
-import ApplicationPage from './pages/Artist/ApplicationPage'
 import ApplicationsPage from './pages/Artist/ApplicationsPage'
+import ApplicationPage from './pages/Artist/ApplicationPage'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
 import PostingCreatePage from './pages/Host/PostingCreatePage'
 import PostingDetailPage from './pages/Host/PostingDetailPage'
@@ -47,7 +47,6 @@ function App() {
           <Route path='/apply/:recruitmentId' element={<ApplyPage />} />
           <Route path='/applications' element={<ApplicationsPage />} />
           <Route path='/application/:recruitmentId/:applicationId' element={<ApplicationPage />} />
-          <Route path='/host'/>
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
           <Route path={HOST_POSTING_CREATE} element={<PostingCreatePage />} />
           <Route path={HOST_POSTING_DETAIL} element={<PostingDetailPage />} />

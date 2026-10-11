@@ -18,7 +18,6 @@ function formatDate(date) {
 }
 
 export default function MyPostingsPage() {
-
     const [summary, setSummary] = useState({total: 0, confirmed: 0, recruiting: 0, reviewing: 0, canceled: 0});
     const [postings, setPostings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -49,6 +48,7 @@ export default function MyPostingsPage() {
                     },
                 })
                 setPostings(response.data.data.content);
+                console.log(response.data.data.content)
                 setTotalPages(response.data.data.totalPages);
             } catch (error) {
                 console.log(error)
@@ -111,7 +111,12 @@ export default function MyPostingsPage() {
                                             <div>등록일: {formatDate(posting.createdAt)}</div>
                                         </div>
                                     </td>
-                                    <td>{formatDate(posting.performanceDate)}</td>
+                                    <td>
+                                        <div className='tableDateTime'>
+                                            <div>{formatDate(posting.performanceDate)}</div>
+                                            <div>{posting.startTime}</div>
+                                        </div>
+                                    </td>
                                     <td>{formatDate(posting.applicationDeadline)}</td>
                                     <td className="postingApplicantTotal">
                                         <div>
