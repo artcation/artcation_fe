@@ -7,14 +7,16 @@ const axiosInstance = axios.create({
   withCredentials: true
 });
 
-axiosInstance.interceptors.request.use(
+axiosInstance.interceptors.response.use(
   (res) => res,
   async (error) => {
+    const skipUrls = ['/auth/token/refresh', '/auth/verify-code', '/auth/signup', '/auth/login', '/auth/password-reset/request', '/auth/password-reset/confirm'];
     const originalRequest = error.config;
-    if (error.response?.status == 401 && !originalRequest._retried && originalRequest.url !== ('/auth/token/refresh')) {
-      originalRequest._retried == true;
+
+    if (error.response?.status == 401 && !originalRequest._retried && !skipUrls.includes(originalRequest.url)) {
+      originalRequest._retried = true;
       await axiosInstance.post('/auth/token/refresh');
-      return axiosInstance(original);
+      return axiosInstance(originalRequest);
     }
     return Promise.reject(error);
   }

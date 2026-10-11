@@ -3,11 +3,13 @@ import './RegisterPage.css'
 import axiosInstance from '../../../api/axiosInstance'
 import { useContext, useState } from "react";
 import Timer from "../../components/Timer";
+import icon_check from '../../assets/icon_check.png';
 import icon_visible from '../../assets/icon_visible.png';
 import icon_invisible from '../../assets/icon_invisible.png';
 import icon_tooltip from '../../assets/icon_tooltip.png';
 import { SignupContext } from "../../context/SignupContext";
-import Popup from "../../components/Popup";
+import NoticePopup from "../../components/NoticePopup";
+import { useNavigate } from "react-router";
 
 export default function RegisterPage() {
     const { checks } = useContext(SignupContext);
@@ -24,6 +26,9 @@ export default function RegisterPage() {
     const [messages, setMessages] = useState([]);
     const [timerKey, setTimerKey] = useState(0);
     const allChecked = id && emailAtCode && codeChecked && pw && pw == pwCheck;
+    const navigate = useNavigate();
+    const [popupVisibility, setPopupVisibility] = useState(false);
+    const pwCheckError = pwCheck && pw != pwCheck;
 
     async function handleEmailCodeGet() {
         try {
@@ -79,19 +84,9 @@ export default function RegisterPage() {
             pwCheckVisibility ? setPwCheckVisibility(false) : setPwCheckVisibility(true);
         }
     }
-
-    function handlePwCheck(e) {
-        setPwCheck(e.target.value);
-        if (pw != e.target.value) {
-            setMessages({...messages, pwCheckError: '* 비밀번호가 일치하지 않습니다.'});
-        } else {
-            setMessages({...messages, pwCheckError: ''});
-        }
-    }
-
+    
     async function handleRegister() {
         // 상황별 오류 빼놓기 - 백 수정 후 다시 확인
-        // 가입 완료 시 팝업
         try {
             const response = await axiosInstance.post(
                 '/auth/signup',
@@ -104,29 +99,29 @@ export default function RegisterPage() {
                     agreedToMarketing: checks.marketingCheck
                 }
             )
-
-            console.log(response);
+            setPopupVisibility(true);
         } catch (error) {
             console.log(error.response.data);
-            // setMessages({});
-            if (error.response.data.code == 'INVALID_INPUT') {
-                if (error.response.data.message.includes('loginId')) {
-                    setMessages({...messages, idError: '* 아이디는 4-20자의 영문, 숫자, 언더스코어 조합으로 입력해주세요.'});
+            const newMessages = {};
+            for (let err of error.response.data.errors) {
+                if (err.message.includes('loginId')) {
+                    newMessages.idError = '* 아이디는 4-20자의 영문, 숫자, 언더스코어 조합으로 입력해주세요.';
+                    newMessages.idError = '* 이미 사용 중인 아이디입니다.';
                 }
-                if (error.response.data.message.includes('password')) {
-                    setMessages({...messages, pwError: '* 비밀번호는 8-20자의 영문+숫자+특수문자 조합으로 설정해주세요.'});
+                if (err.message.includes('password')) {
+                    newMessages.pwError = '* 비밀번호는 8-20자의 영문+숫자+특수문자 조합으로 설정해주세요.';
                 }
-            } else if (error.response.data.code == 'LOGIN_ID_DUPLICATED') {
-                setMessages({...messages, idError: '* 이미 사용 중인 아이디입니다.'});
-            } else if (error.response.data.code == 'EMAIL_VERIFICATION_EXPIRED') {
-                setMessages({...messages, emailError: '* 이메일 인증이 만료되었습니다.'});
+                if (err.message.includes('email')) {
+                    newMessages.emailError = '* 이메일 인증이 만료되었습니다.';
+                }
             }
+            setMessages(newMessages);
         }
     }
 
     return (
         <>
-            <Popup visibility={false} mainText='회원가입이 완료되었습니다' subText='Artcation과 함께 새로운 공연 기회를 만나보세요.' />
+            <NoticePopup visibility={popupVisibility} onRightButtonClick={() => navigate('/')} image={icon_check} rightButtonText={'메인 화면으로 이동'} type={'primary'} mainText={<p>회원가입이 완료되었습니다</p>} subText='Artcation과 함께 새로운 공연 기회를 만나보세요.' />
             <div className="loginHeader registerHeader">
                 <h1>계정 생성</h1>
                 <p>계정을 만들고 나에게 맞는 공연 기회를 찾아보세요</p>
@@ -141,7 +136,7 @@ export default function RegisterPage() {
                     <label htmlFor="email">이메일<span>*</span></label>
                     <div className="checkContainer">
                         <input onChange={(e) => setEmail(e.target.value)} value={email} id="email" type="email" required />
-                        <button className="checkButton" style={!email ? {backgroundColor: '#BDBDBD'}  : {}} onClick={email ? handleEmailCodeGet : ''}>이메일 인증</button>
+                        <button className="checkButton" style={!email || email == emailAtCode ? {backgroundColor: '#BDBDBD'}  : {}} onClick={email && emailAtCode != email ? handleEmailCodeGet : null}>이메일 인증</button>
                     </div>
                     <p>{messages.emailError}</p>
                 </div>
@@ -178,15 +173,19 @@ export default function RegisterPage() {
                 <div>
                     <label htmlFor="passwordCheck">비밀번호 확인<span>*</span></label>
                     <div>
-                        <input onChange={handlePwCheck} value={pwCheck} className="pwInput" id="passwordCheck" type={pwCheckVisibility ? 'text' : 'password'} required />
+                        <input onChange={(e) => setPwCheck(e.target.value)} value={pwCheck} className="pwInput" id="passwordCheck" type={pwCheckVisibility ? 'text' : 'password'} required />
                         <button style={{ backgroundImage: `url(${pwCheckVisibility ? icon_visible : icon_invisible})` }} onClick={() => handlePwVisibility('pwCheck')} className="visibilityToggle"></button>
                     </div>
-                    <p>{messages.pwCheckError}</p>
+                    {
+                        pwCheckError ? <p>* 비밀번호가 일치하지 않습니다.</p> : ''
+                    }
                 </div>
             </div>
             <div className="registerFooter">
                 <LoginButton onClick={handleRegister} type={allChecked ? 'active' : 'inactive'} text='가입하기' />
-                <p>* 인증 코드가 오지 않았나요? <button onClick={handleEmailCodeGet}>인증번호 재전송</button></p>
+                {
+                    codeSent ? <p>* 인증 코드가 오지 않았나요? <button onClick={handleEmailCodeGet}>인증번호 재전송</button></p> : ''
+                }
             </div>
         </>
     )

@@ -8,13 +8,16 @@ export default function NoticePopup({ visibility, image, mainText, subText, left
     return (
         <div className="noticePopupBg">
             <div className="noticePopup">
-                {image && <img src={image} alt="" />}
+                {image && <img style={ type === 'primary' ? { width: '2rem' } : {} } src={image} alt="" />}
                 <div>
                     <p>{mainText}</p>
                     <p>{subText}</p>
                 </div>
                 <div>
-                    <button onClick={onLeftButtonClick}>{leftButtonText}</button>
+                    {
+                        rightButtonText != '메인 화면으로 이동' ?
+                        <button onClick={onLeftButtonClick}>{leftButtonText}</button> : ''
+                    }
                     {
                         rightButtonText ?
                         <button className={type == 'cancel' ? 'cancelButton' : (type == 'primary' ? 'primaryButton' : '')} onClick={onRightButtonClick}>{rightButtonText}</button> : ''
