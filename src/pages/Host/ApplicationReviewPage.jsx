@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './ApplicationReviewPage.css'
 import StatusIcon from '../../components/StatusIcon'
 import Pagination from '../../components/Pagination'
@@ -7,10 +6,9 @@ import ApplicantCard from './ApplicantCard'
 import ApplicantDetail from './ApplicantDetail'
 import icon_popup_sent from '../../assets/icon_popup_sent.png'
 import icon_popup_saved from '../../assets/icon_popup_saved.png'
-import { useEffect } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { useParams } from 'react-router'
 import axiosInstance from '../../../api/axiosInstance'
-
 
 const FILTERS = [
     {value: null, label: '전체'},
@@ -58,7 +56,11 @@ export default function ApplicationReviewPage() {
                         page: currentPage,
                     }
                 });
-                setApplicants(response.data.data.content);
+                const content = response.data.data.content;
+                setApplicants(content);
+                setSelectedId((prev) =>
+                    content.some((a) => a.applicationId === prev) ? prev : (content[0]?.applicationId ?? null)
+                );
                 setTotalPages(response.data.data.totalPages);
             } catch (error) {
                 console.log(error);
@@ -67,6 +69,9 @@ export default function ApplicationReviewPage() {
         getApplicants();
     }, [id, filter, currentPage, reloadKey]);
 
+    const handleViewed = useCallback((applicationId) => {
+        setApplicants((prev) => prev.map((a) => a.applicationId === applicationId ? { ...a, viewed: true } : a))
+    }, [])
     function handleReviewChange(applicationId, reviewStatus) {
         setChanges({ ...changes, [applicationId]: reviewStatus });
     }
@@ -167,8 +172,9 @@ export default function ApplicationReviewPage() {
                                     applicationId={selectedId}
                                     changedStatus={changes[selectedId]}
                                     onReviewChange={handleReviewChange}
+                                    onViewed={handleViewed}
                                   />
-                                : <div className="applicantDetailEmpty">왼쪽 목록에서 지원자를 선택해 주세요.</div>
+                                : <div className="applicantDetailEmpty">해당하는 지원자가 없습니다.</div>
                             }
                             <div className="reviewActions">
                                 <button className="reviewDraftBtn" onClick={() => saveResults('draft')}>임시 저장</button>

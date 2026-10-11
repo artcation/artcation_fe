@@ -12,7 +12,7 @@ function formatDate(date) {
     return date.replaceAll('-', '. ')
 }
 
-export default function ApplicantDetail({recruitmentId, applicationId, changedStatus, onReviewChange}) {
+export default function ApplicantDetail({recruitmentId, applicationId, changedStatus, onReviewChange, onViewed}) {
     const [detail, setDetail] = useState(null)
 
     useEffect(() => {
@@ -20,12 +20,13 @@ export default function ApplicantDetail({recruitmentId, applicationId, changedSt
             try {
                 const response = await axiosInstance.get(`/host/recruitments/${recruitmentId}/applications/${applicationId}`);
                 setDetail(response.data.data);
+                onViewed(applicationId);
             } catch(error) {
                 console.log(error);
             }
         }
         getDetail();
-    }, [recruitmentId, applicationId])
+    }, [recruitmentId, applicationId, onViewed])
 
     if (!detail) return null;
 

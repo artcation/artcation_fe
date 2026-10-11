@@ -54,3 +54,6 @@
     font-size: 0.875rem;
     color: var(--primary-color);
 }
+.applicantUnviewed {
+    color: var(--primary-color);
+}

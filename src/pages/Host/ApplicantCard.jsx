@@ -15,7 +15,9 @@ export default function ApplicantCard({ applicant, onClick }) {
             </div>
             <div>
                 <StatusIcon text={applicant.reviewStatus} />
-                {applicant.daysUntilConfirm != null && <div>D-{applicant.daysUntilConfirm}</div>}
+                {!applicant.viewed
+                    ? <div className="applicantUnviewed">미열람</div>
+                    : applicant.daysUntilConfirm != null && <div>D-{applicant.daysUntilConfirm}</div>}
             </div>
         </div>
     )
