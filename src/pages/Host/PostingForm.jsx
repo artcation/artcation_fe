@@ -53,14 +53,14 @@ export default function PostingForm( {posting = {}}) {
                     <div>
                         <label htmlFor="title">공고명<span>*</span></label>
                         <div>
-                            <input id="title" type="text" name="title" defaultValue={posting.title} required/>
+                            <input id="title" type="text" className="inputFull" name="title" defaultValue={posting.title} required/>
                         </div>
                     </div>
                     
                     <div>
                         <label htmlFor="placeName">장소명<span>*</span></label>
                         <div>
-                            <input id="placeName" type="text" name="placeName" defaultValue={posting.placeName} placeholder="ex) OO 요양원 1층 강당" required/>
+                            <input id="placeName" type="text" className="inputFull" name="placeName" defaultValue={posting.placeName} placeholder="ex) OO 요양원 1층 강당" required/>
                         </div>
                     </div>
 
@@ -69,13 +69,8 @@ export default function PostingForm( {posting = {}}) {
                         <div>
                             <input id="performanceDate" name="performanceDate" type="date" defaultValue={posting.performanceDate} required />
                             <input type="time" name="startTime" defaultValue={posting.startTime} required />
-                            <select name="runningTime" defaultValue={posting.runningTime || ''} required>
-                                <option value="" disabled>러닝 타임</option>
-                                <option value="30">30분</option>
-                                <option value="40">40분</option>
-                                <option value="50">50분</option>
-                                <option value="60">60분</option>
-                            </select>
+                            <input type="number" name="runningTime" min="1" defaultValue={posting.runningTime} placeholder="러닝 타임" required />
+                            <span className="inputUnit">분</span>
                         </div>
                     </div>
 
@@ -88,7 +83,7 @@ export default function PostingForm( {posting = {}}) {
 
                     <div>
                         <label htmlFor="genre">희망 장르 및 모집 팀 수<span>*</span></label>
-                        <div>
+                        <div className="teamCountRow">
                             <select id="genre" name="genre" defaultValue={posting.genre || ''} required>
                                 <option value="" disabled>희망장르</option>
                                 <option value="CLASSIC">클래식</option>
@@ -96,7 +91,8 @@ export default function PostingForm( {posting = {}}) {
                                 <option value="JAZZ">재즈</option>
                                 <option value="KOREAN_TRADITIONAL">국악</option>
                             </select>
-                            <input className="recruitTeamCount" name="recruitTeamCount" type="number" min="1" defaultValue={posting.recruitTeamCount} placeholder="모집 팀 수" required />
+                            <input name="recruitTeamCount" type="number" min="1" defaultValue={posting.recruitTeamCount} placeholder="모집 팀 수" required />
+                            <span className="inputUnit">팀</span>
                         </div>
                     </div>
 

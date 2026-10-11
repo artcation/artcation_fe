@@ -59,19 +59,26 @@
 
 .postingInputs > div > div {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 4fr 2fr 1fr 1fr;
+    align-items: center;
     gap: 0.8125rem;
 }
 
-.postingInputs > div:nth-child(1) > div, .postingInputs > div:nth-child(2) > div {
-    grid-template-columns: 1fr;
+.postingInputs > div > .teamCountRow {
+    grid-template-columns: 4fr 1fr 1fr 2fr;
 }
 
-.postingInputs .recruitTeamCount {
-    grid-column: span 2;
+.postingInputs .inputFull {
+    grid-column: 1 / -1;
+}
+
+.postingInputs .inputUnit {
+    font-size: 1rem;
+    color: #616161;
 }
 
 .postingInputs input, .postingInputs select {
+    min-width: 0;
     height: 2.875rem;
     border: 1px solid #BDBDBD;
     border-radius: 10px;
