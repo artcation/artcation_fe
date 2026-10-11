@@ -15,12 +15,12 @@ export default function NoticePopup({ visibility, image, mainText, subText, left
                 </div>
                 <div>
                     {
-                        rightButtonText != '메인 화면으로 이동' ?
+                        onLeftButtonClick ?
                         <button onClick={onLeftButtonClick}>{leftButtonText}</button> : ''
                     }
                     {
                         rightButtonText ?
-                        <button className={type == 'cancel' ? 'cancelButton' : (type == 'primary' ? 'primaryButton' : '')} onClick={onRightButtonClick}>{rightButtonText}</button> : ''
+                        <button className={`${type}Button`} onClick={onRightButtonClick}>{rightButtonText}</button> : ''
                     }
                 </div>
             </div>

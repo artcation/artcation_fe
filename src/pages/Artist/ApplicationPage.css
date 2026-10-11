@@ -1,53 +1,23 @@
-.applicationPage > div {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.applicationPage > .applicationButtons {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.5rem;
 }
 
-.postingPerformanceInfo, .applicationPage textarea, .applicationPage input, .applicationInputs > div > div {
-    border: 2px solid #E0E0E0;
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    color: #757575;
+.applicationButtons button {
+    border-radius: 6px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    padding: 1rem 4rem;
 }
 
-.applicationPage .postingPerformanceInfo {
-    grid-template-columns: 1fr;
+.applicationButtons button:first-child {
+    border: solid #EC4E4E 2px;
+    color: #EC4E4E;
+    background-color: white;
 }
 
-.applicationPage .postingPerformanceInfo > div {
-    grid-template-columns: 5rem max-content;
-    grid-column-gap: 1rem;
-}
-
-.applicationPage .applicationInputs {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.applicationInputs > div {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.applicationInputs span {
-    color: var(--primary-color);
-}
-
-.applicationPage textarea, .applicationPage input {
-    width: 100%;
-    color: #616161;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.applicationInputs textarea {
-    resize: none;
-    height: 10rem;
-}
-
-.applicationPage input::placeholder {
-    color: #BDBDBD;
+.applicationButtons button:last-child {
+    border: solid var(--primary-color) 2px;
+    color: white;
+    background-color: var(--primary-color);
 }

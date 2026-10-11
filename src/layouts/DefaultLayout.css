@@ -65,6 +65,7 @@
     width: 100%;
     border-top: 1.5px solid #757575;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 .defaultContent thead {

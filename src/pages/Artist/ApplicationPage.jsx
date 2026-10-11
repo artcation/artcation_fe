@@ -1,82 +1,145 @@
+import { useNavigate, useParams } from "react-router";
 import axiosInstance from "../../../api/axiosInstance";
-import BottomButton from "../../components/bottomButton";
-import './ApplicationPage.css';
+import StatusIcon from "../../components/StatusIcon";
+import './ApplicationPage.css'
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import PerformanceInfo from "../../components/PerformanceInfo";
+import NoticePopup from "../../components/NoticePopup";
+import character_cancel from "../../assets/character_cancel.png"
+import ResultPage from './ResultPage';
 
 export default function ApplicationPage() {
-    const [portfolio, setPortfolio] = useState('');
-    const [request, setRequest] = useState('');
-    const [info, setInfo] = useState('');
-    const { performanceId } = useParams();
+    const [isEditing, setIsEditing] = useState(false);
+    const { recruitmentId, applicationId } = useParams();
+    const [applicationInfo, setApplicationInfo] = useState(null);
+    const [recruitmentInfo, setRecruitmentInfo] = useState(null);
+    const [applicationInputs, setApplicationInputs] = useState({});
+    const navigate = useNavigate();
+    const [popupIsVisible, setPopupIsVisible] = useState(false);
 
-    const GENRES = {
-        'CLASSIC': '클래식',
-        'POPULAR': '대중음악',
-        'JAZZ': '재즈',
-        'KOREAN_TRADITIONAL': '국악'
+    async function handleApplicationGet() {
+        try {
+            const response = await axiosInstance.get(`/artist/applications/${applicationId}`)
+            setApplicationInfo(response.data.data);
+            setApplicationInputs({teamName: response.data.data.teamName, portfolio: response.data.data.portfolio, performancePlan: response.data.data.performancePlan, requestToHost: response.data.data.requestToHost});
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
 
-    async function handleInfoGet() {
+    async function handleRecruitmentGet() {
         try {
-            const response = await axiosInstance.get(
-                `/performances/${performanceId}/brief`
-            )
-            setInfo(response.data.data);
+            const response = await axiosInstance.get(`/recruitments/${recruitmentId}/brief`);
+            setRecruitmentInfo(response.data.data);
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
+    async function handleApplicationEdit() {
+        try {
+            const response = await axiosInstance.put(`/artist/applications/${applicationId}`, {
+                teamName: applicationInputs.teamName,
+                portfolio: applicationInputs.portfolio,
+                performancePlan: applicationInputs.performancePlan,
+                requestToHost: applicationInputs.requestToHost
+            })
+            setIsEditing(false);
+            handleApplicationGet();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function handleApplicationCancel() {
+        try {
+            const response = await axiosInstance.post(`/artist/applications/${applicationId}/cancel`)
+            navigate('/applications');
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
-        handleInfoGet();
-    }, [performanceId])
+        handleApplicationGet();
+        handleRecruitmentGet();
+    }, [])
 
+
+    if (applicationInfo?.status == 'CONFIRMED' || applicationInfo?.status == 'SELECTED') {
+        return (
+            <ResultPage applicationId={applicationId} />
+        )
+    }
 
     return (
         <>
             <div className="applicationPage">
-                <h1>공연 지원서 작성</h1>
-                <ul>
-                    <li>공연에 제출할 포트폴리오와 지원 내용을 작성해 주세요.</li>
-                    <li>작성한 정보를 확인한 후 지원을 완료해 주세요.</li>
-                    <li>지원 전 공연 일정과 장소를 다시 한 번 확인해 주세요.</li>
-                </ul>
+                <NoticePopup onLeftButtonClick={() => setPopupIsVisible(false)} onRightButtonClick={handleApplicationCancel} mainText={<>지원을 <span>취소</span>하시겠어요?</>} type={'cancel'} rightButtonText={'지원 취소'} subText={"취소한 지원서는 복구할 수 없습니다."} visibility={popupIsVisible} image={character_cancel}  />
                 <div>
-                    <h2>공연 정보</h2>
-                    <div className="postingPerformanceInfo">
-                        <div>
-                            <div>공연일시</div>
-                            <div>{info.performanceDate} ({new Date(info.performanceDate).toLocaleDateString('ko-KR', { weekday: 'short' })}) {info.startTime}</div>
-                        </div>
-                        <div>
-                            <div>장소명</div>
-                            <div>{info.placeName}</div>
-                        </div>
-                        <div>
-                            <div>러닝타임</div>
-                            <div>{info.runningTime}분</div>
-                        </div>
-                        <div>
-                            <div>장르</div>
-                            <div>{GENRES[info.genre]}</div>
-                        </div>
-                    </div>
+                    <StatusIcon text={applicationInfo?.status} />
+                    <h1>{recruitmentInfo?.title}</h1>
+                </div>
+                <div>
+                    <h2>지원기관 확인</h2>
+                    <PerformanceInfo info={recruitmentInfo} />
                 </div>
                 <div className="applicationInputs">
                     <h2>지원 내용</h2>
                     <div>
+                        <h3>팀명<span>*</span></h3>
+                        {
+                            isEditing ?
+                            <input value={applicationInputs?.teamName} onChange={(e) => setApplicationInputs({...applicationInputs, teamName: e.target.value})} name="" id="portfolio" /> :
+                            <div>
+                                {applicationInfo?.teamName}
+                            </div>
+                        }
+                    </div>
+                    <div>
                         <h3>내 포트폴리오<span>*</span></h3>
-                        <textarea onChange={(e) => setPortfolio(e.target.value)} name="" id=""></textarea>
+                        {
+                            isEditing ?
+                            <textarea value={applicationInputs?.portfolio} onChange={(e) => setApplicationInputs({...applicationInputs, portfolio: e.target.value})} name="" id="portfolio" /> :
+                            <div>
+                                {applicationInfo?.portfolio}
+                            </div>
+                        }
+                    </div>
+                    <div>
+                        <h3>공연 계획<span>*</span></h3>
+                        {
+                            isEditing ?
+                            <textarea value={applicationInputs?.performancePlan} onChange={(e) => setApplicationInputs({...applicationInputs, performancePlan: e.target.value})} name="" id="performancePlan" /> :
+                            <div>
+                                {applicationInfo?.performancePlan}
+                            </div>
+                        }
                     </div>
                     <div>
                         <h3>요청 사항</h3>
-                         <input onChange={(e) => setRequest(e.target.value)} type="text" placeholder="지원 기관에 전달할 메시지를 입력해 주세요." />
+                        {
+                            isEditing ?
+                            <input onChange={(e) => setApplicationInputs({...applicationInputs, requestToHost: e.target.value})} value={applicationInputs?.requestToHost} type="text" /> :
+                            <div>
+                                {applicationInfo?.requestToHost}
+                            </div>
+                        }
                     </div>
                 </div>
-            </div>
-            <div className="bottomBar">
-                <BottomButton text='지원서 제출' type={portfolio ? 'primary' : 'inactive'} />
+                <div className="applicationButtons">
+                    {
+                        applicationInfo?.availableActions.includes('CANCEL') ? <button onClick={() => setPopupIsVisible(true)}>지원취소</button> : ''
+                    }
+                    
+                    {
+                        applicationInfo?.availableActions.includes('EDIT') ? (
+                            isEditing ?
+                            <button onClick={handleApplicationEdit} style={{ color: 'var(--primary-color)', backgroundColor: 'white' }}>수정완료</button> :
+                            <button onClick={() => setIsEditing(true)}>수정하기</button>
+                        ) : ''
+                    }
+                </div>
             </div>
         </>
     )

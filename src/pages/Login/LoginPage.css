@@ -29,10 +29,15 @@
     border-radius: 10px;
     padding: 1rem;
     color: #424242;
+    width: 100%;
 }
 
 .loginInputs input::placeholder {
     color: #BDBDBD;
+}
+
+.loginInputs > div {
+    position: relative;
 }
 
 .loginInputs p {

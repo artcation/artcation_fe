@@ -4,10 +4,13 @@ import './LoginPage.css'
 import axiosInstance from "../../../api/axiosInstance";
 import { useContext, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
+import icon_visible from '../../assets/icon_visible.png';
+import icon_invisible from '../../assets/icon_invisible.png';
 
 export default function LoginPage() {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
+    const [pwVisibility, setPwVisibility] = useState(false);
     const [errors, setErrors] = useState('');
     const navigate = useNavigate();
     const { setIsLoggedIn } = useContext(LoginContext);
@@ -19,11 +22,23 @@ export default function LoginPage() {
                 password: password
             })
             setIsLoggedIn(true);
-            navigate('/');
+            const response_2 = await axiosInstance.get('/users/me');
+            if (response_2.data.data.role == "ARTIST") {
+                navigate('/explore');
+            } else if (response_2.data.data.role = "HOST") {
+                // 호스트 주소 정리 후 수정
+                navigate('/');
+            } else {
+                navigate('/');
+            }
         } catch (error) {
             console.log(error);
             setErrors(error.response.data.message);
         }
+    }
+
+    function handlePwVisibility() {
+        pwVisibility ? setPwVisibility(false) : setPwVisibility(true);
     }
 
     return (
@@ -34,7 +49,10 @@ export default function LoginPage() {
             </div>
             <div className="loginInputs">
                 <input value={id} onChange={(e) => setId(e.target.value)} type="text" placeholder="아이디" />
-                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="비밀번호" />
+                <div>
+                    <input placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} value={password} className="pwInput" id="password" type={pwVisibility ? 'text' : 'password'} required />
+                    <button style={{ backgroundImage: `url(${pwVisibility ? icon_visible : icon_invisible})` }} onClick={handlePwVisibility} className="visibilityToggle"></button>
+                </div>
                 {
                     errors ?
                     <p>* {errors ? errors : ''}.</p>

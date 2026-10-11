@@ -18,21 +18,13 @@ export default function ResetPage() {
     const token = searchParams.get('token');
     const [popupVisibility, setPopupVisibility] = useState(false);
     const navigate = useNavigate();
+    const pwCheckError = pwCheck && pw != pwCheck;
 
     function handlePwVisibility(type) {
         if (type == 'pw') {
             pwVisibility ? setPwVisibility(false) : setPwVisibility(true)
         } else {
             pwCheckVisibility ? setPwCheckVisibility(false) : setPwCheckVisibility(true);
-        }
-    }
-
-    function handlePwCheck(e) {
-        setPwCheck(e.target.value);
-        if (pw != e.target.value) {
-            setMessages({...messages, pwCheckError: '* 비밀번호가 일치하지 않습니다.'});
-        } else {
-            setMessages({...messages, pwCheckError: ''});
         }
     }
 
@@ -44,7 +36,17 @@ export default function ResetPage() {
             });
             setPopupVisibility(true);
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data);
+            const newMessages = {};
+            for (let err of error.response.data.errors) {
+                if (err.message.includes('newPassword')) {
+                    newMessages.pwError = '* 비밀번호는 8-20자의 영문+숫자+특수문자 조합으로 설정해주세요.';
+                }
+                if (err.message.includes('resetToken')) {
+                    newMessages.emailError = '* 재설정 토큰이 유효하지 않습니다.';
+                }
+            }
+            setMessages(newMessages);
         }
     }
 
@@ -67,10 +69,12 @@ export default function ResetPage() {
                 <div>
                     <label htmlFor="passwordCheck">비밀번호 확인<span>*</span></label>
                     <div>
-                        <input onChange={handlePwCheck} value={pwCheck} className="pwInput" id="passwordCheck" type={pwCheckVisibility ? 'text' : 'password'} required />
+                        <input onChange={(e) => setPwCheck(e.target.value)} value={pwCheck} className="pwInput" id="passwordCheck" type={pwCheckVisibility ? 'text' : 'password'} required />
                         <button style={{ backgroundImage: `url(${pwCheckVisibility ? icon_visible : icon_invisible})` }} onClick={() => handlePwVisibility('pwCheck')} className="visibilityToggle"></button>
                     </div>
-                    <p>{messages.pwCheckError}</p>
+                    {
+                        pwCheckError ? <p>* 비밀번호가 일치하지 않습니다.</p> : ''
+                    }
                 </div>
             </div>
             <LoginButton onClick={handleResetPw} type={pw && pw == pwCheck ? 'active' : 'inactive'} text={"재설정하기"} />

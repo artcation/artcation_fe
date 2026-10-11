@@ -195,3 +195,27 @@
     color: var(--primary-color);
     font-size: 1.1rem;
 }
+
+.searchContainer th:nth-child(1) {
+    width: 15%;
+}
+
+.searchContainer th:nth-child(2) {
+    width: 35%;
+}
+
+.searchContainer th:nth-child(3) {
+    width: 10%;
+}
+
+.searchContainer th:nth-child(4) {
+    width: 10%;
+}
+
+.searchContainer th:nth-child(5) {
+    width: 15%;
+}
+
+.searchContainer th:nth-child(6) {
+    width: 15%;
+}

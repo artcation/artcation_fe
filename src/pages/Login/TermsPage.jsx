@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import './TermsPage.css';
 import { useNavigate } from "react-router";
 import { SignupContext } from "../../context/SignupContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function TermsPage() {
     const { checks, setChecks } = useContext(SignupContext);
@@ -22,6 +22,9 @@ export default function TermsPage() {
         navigate('/signup/create');
     }
 
+    useEffect(() => {
+        setChecks({ageCheck: false, termsCheck: false, privacyCheck: false, marketingCheck: false});
+    }, []);
 
     return (
         <>
