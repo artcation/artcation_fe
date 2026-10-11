@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import PerformanceInfo from "../../components/PerformanceInfo";
 import NoticePopup from "../../components/NoticePopup";
 import character_cancel from "../../assets/character_cancel.png"
+import ResultPage from './ResultPage';
 
 export default function MyApplicationPage() {
     const [isEditing, setIsEditing] = useState(false);
@@ -63,6 +64,13 @@ export default function MyApplicationPage() {
         handleApplicationGet();
         handleRecruitmentGet();
     }, [])
+
+
+    if (applicationInfo?.status == 'CONFIRMED') {
+        return (
+            <ResultPage recruitmentInfo={recruitmentInfo} applicationId={applicationId} />
+        )
+    }
 
     return (
         <>

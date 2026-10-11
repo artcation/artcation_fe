@@ -4,10 +4,13 @@ import './LoginPage.css'
 import axiosInstance from "../../../api/axiosInstance";
 import { useContext, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
+import icon_visible from '../../assets/icon_visible.png';
+import icon_invisible from '../../assets/icon_invisible.png';
 
 export default function LoginPage() {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
+    const [pwVisibility, setPwVisibility] = useState(false);
     const [errors, setErrors] = useState('');
     const navigate = useNavigate();
     const { setIsLoggedIn } = useContext(LoginContext);
@@ -26,6 +29,14 @@ export default function LoginPage() {
         }
     }
 
+    function handlePwVisibility(type) {
+        if (type == 'pw') {
+            pwVisibility ? setPwVisibility(false) : setPwVisibility(true)
+        } else {
+            pwCheckVisibility ? setPwCheckVisibility(false) : setPwCheckVisibility(true);
+        }
+    }
+
     return (
         <>
             <div className="loginHeader">
@@ -34,7 +45,10 @@ export default function LoginPage() {
             </div>
             <div className="loginInputs">
                 <input value={id} onChange={(e) => setId(e.target.value)} type="text" placeholder="아이디" />
-                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="비밀번호" />
+                <div>
+                    <input placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} value={password} className="pwInput" id="password" type={pwVisibility ? 'text' : 'password'} required />
+                    <button style={{ backgroundImage: `url(${pwVisibility ? icon_visible : icon_invisible})` }} onClick={() => handlePwVisibility('pw')} className="visibilityToggle"></button>
+                </div>
                 {
                     errors ?
                     <p>* {errors ? errors : ''}.</p>
@@ -46,9 +60,9 @@ export default function LoginPage() {
             <div className="loginHelp">
                 <Link to="/signup/terms">회원가입</Link>
                 <span>|</span>
-                <Link>아이디 찾기</Link>
+                <Link to="/find/id">아이디 찾기</Link>
                 <span>|</span>
-                <Link>비밀번호 찾기</Link>
+                <Link to="/find/password">비밀번호 찾기</Link>
             </div>
         </>
     )

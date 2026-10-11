@@ -30,7 +30,7 @@ export default function TermsPage() {
             </div>
             <div className="termsBody">
                 <div>
-                    <input onChange={handleAgreeAll} id="agreeAll" type="checkbox" />
+                    <input checked={allChecked} onChange={handleAgreeAll} id="agreeAll" type="checkbox" />
                     <label htmlFor="agreeAll">약관 전체 동의</label>
                 </div>
                 <div>

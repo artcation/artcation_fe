@@ -3,7 +3,7 @@ import logo from '../assets/logo.png';
 import './DefaultLayout.css';
 import { useNavigate } from 'react-router';
 import axiosInstance from '../../api/axiosInstance';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { LoginContext } from '../context/LoginContext';
 
 export default function DefaultLayout() {
@@ -22,6 +22,20 @@ export default function DefaultLayout() {
             console.log(error);
         }
     }
+
+    async function handleIsLoggedIn() {
+        try {
+            const response = await axiosInstance.get('/users/me');
+            setIsLoggedIn(true);
+        } catch (error) {
+            console.log(error);
+            navigate('/login');
+        }
+    }
+    
+    useEffect(() => {
+        handleIsLoggedIn();
+    }, [])
 
     return (
         <div className="defaultLayout">
