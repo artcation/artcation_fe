@@ -76,6 +76,11 @@ export default function ApplicantDetail({recruitmentId, applicationId, changedSt
             </div>
 
             <div className="applicantSection">
+                <h3>공연 계획</h3>
+                <div className="applicantBox">{detail.performancePlan}</div>
+            </div>
+
+            <div className="applicantSection">
                 <h3>포트폴리오</h3>
                 <div className="applicantBox">{detail.portfolio}</div>
             </div>
