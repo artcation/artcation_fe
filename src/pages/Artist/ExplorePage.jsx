@@ -2,6 +2,7 @@ import StatusIcon from '../../components/StatusIcon'
 import icon_activedropdown from '../../assets/icon_activedropdown.png'
 import './ExplorePage.css'
 import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 import axiosInstance from '../../../api/axiosInstance'
 import Pagination from '../../components/Pagination'
 
@@ -14,6 +15,7 @@ export default function ExplorePage() {
     const [totalPages, setTotalPages] = useState(1);
     const menuRef = useRef(null);
     const dateRef = useRef(null);
+    const navigate = useNavigate();
 
     const GENRES = {
         'CLASSIC': '클래식',
@@ -152,13 +154,13 @@ export default function ExplorePage() {
                         <tbody>
                             {
                                 performances?.map((p) => (
-                                    <tr key={p.performanceId}>
+                                    <tr key={p.recruitmentId}>
                                         <td className='resultDateTime'>
                                             <div>{p.performanceDate.split('-')[1]}월 {p.performanceDate.split('-')[2]}일</div>
                                             <div>{p.startTime}</div>
                                         </td>
                                         <td>
-                                            <div className='resultStatus'>
+                                            <div className='resultStatus' onClick={() => navigate(`/posting/${p.recruitmentId}`)}>
                                                 <StatusIcon text={p.status} />
                                                 <div>{p.title}</div>
                                                 <div>{p.region} · {p.hostName}</div>

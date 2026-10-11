@@ -7,7 +7,7 @@ import StatusIcon from "../../components/StatusIcon";
 
 export default function PostingPage() {
     const [ postingInfo, setPostingInfo ] = useState('');
-    const { performanceId } = useParams();
+    const { recruitmentId } = useParams();
 
     const GENRES = {
         'CLASSIC': '클래식',
@@ -19,10 +19,9 @@ export default function PostingPage() {
     async function handlePostingInfo() {
         try {
             const response = await axiosInstance.get(
-                `/performances/${performanceId}`
+                `/recruitments/${recruitmentId}`
             )
             setPostingInfo(response.data.data);
-            console.log(response.data.data);
         } catch (error) {
             console.log(error);
         }
@@ -47,7 +46,7 @@ export default function PostingPage() {
                     <div className="postingPerformanceInfo">
                         <div>
                             <div>공연일시</div>
-                            <div>{postingInfo.performance?.performanceDate} (({new Date(postingInfo.performance?.performanceDate).toLocaleDateString('ko-KR', { weekday: 'short' })})) {postingInfo.performance?.performanceTime}</div>
+                            <div>{postingInfo.performance?.performanceDate} ({new Date(postingInfo.performance?.performanceDate).toLocaleDateString('ko-KR', { weekday: 'short' })}) {postingInfo.performance?.performanceTime}</div>
                         </div>
                         <div>
                             <div>모집 팀 수</div>
