@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../../api/axiosInstance";
 import BottomButton from "../../components/bottomButton";
 import './PostingPage.css';
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import StatusIcon from "../../components/StatusIcon";
 
 export default function PostingPage() {
     const [ postingInfo, setPostingInfo ] = useState('');
     const { recruitmentId } = useParams();
+    const navigate = useNavigate();
 
     const GENRES = {
         'CLASSIC': '클래식',
@@ -22,6 +23,7 @@ export default function PostingPage() {
                 `/recruitments/${recruitmentId}`
             )
             setPostingInfo(response.data.data);
+            console.log(response.data.data)
         } catch (error) {
             console.log(error);
         }
@@ -90,7 +92,7 @@ export default function PostingPage() {
                 </div>
             </div>
             <div className="bottomBar">
-                <BottomButton text={`지원하기 (D-${postingInfo?.daysUntilDeadline})`} type={'primary'} />
+                <BottomButton onClick={() => navigate(`/apply/${recruitmentId}`)} text={postingInfo.status == 'RECRUITING' ? `지원하기 (D-${postingInfo?.daysUntilDeadline})` : '모집 마감'} type={'primary'} />
             </div>
         </>
     )

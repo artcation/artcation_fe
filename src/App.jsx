@@ -13,7 +13,7 @@ import ExplorePage from './pages/Artist/ExplorePage'
 import PostingPage from './pages/Artist/PostingPage'
 import TermsPage from './pages/Login/TermsPage'
 import ResultPage from './pages/Artist/ResultPage'
-import ApplicationPage from './pages/Artist/ApplicationPage'
+import ApplyPage from './pages/Artist/ApplyPage'
 import MyApplicationPage from './pages/Artist/MyApplicationPage'
 import MyApplicationsPage from './pages/Artist/MyApplicationsPage'
 import MyPostingsPage from './pages/Host/MyPostingsPage'
@@ -44,12 +44,10 @@ function App() {
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path='/explore' element={<ExplorePage />} />
-          <Route path='/artist/result' element={<ResultPage />} />
-          <Route path='/artist/application' element={<ApplicationPage />} />
-          <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/posting/:recruitmentId' element={<PostingPage />} />
-          <Route path='/artist/application/:performanceId' element={<ApplicationPage />} />
-          <Route path='/artist/application/:recruitmentId' element={<ApplicationPage />} />
+          <Route path='/apply/:recruitmentId' element={<ApplyPage />} />
+          <Route path='/artist/result' element={<ResultPage />} />
+          <Route path='/artist/myapplications' element={<MyApplicationsPage />} />
           <Route path='/artist/myapplication/:recruitmentId/:applicationId' element={<MyApplicationPage />} />
           <Route path='/host'/>
           <Route path={HOST_POSTINGS} element={<MyPostingsPage />} />
