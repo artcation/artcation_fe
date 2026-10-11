@@ -5,6 +5,8 @@
     padding: 2.5rem;
     border: 2px solid #BDBDBD;
     border-radius: 22px;
+    max-height: calc(10 * 6.25rem + 9 * 1rem);
+    overflow-y: auto;
 }
 
 .applicantDetailHeader {
