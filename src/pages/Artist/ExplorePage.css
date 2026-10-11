@@ -146,28 +146,6 @@
     background-color: transparent;
 }
 
-.searchContainer table {
-    width: 100%;
-    border-top: 1.5px solid #757575;
-    border-collapse: collapse;
-}
-
-.searchContainer thead {
-    background-color: #F5F5F5;
-    color: #757575;
-}
-
-.searchContainer th {
-    padding: 1rem;
-    font-size: 0.9rem;
-}
-
-.searchContainer td {
-    text-align: center;
-    padding: 1.5rem;
-    color: #757575;
-}
-
 
 .resultStatus {
     display: grid;

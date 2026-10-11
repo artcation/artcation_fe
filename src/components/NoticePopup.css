@@ -1,0 +1,64 @@
+.noticePopupBg {
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.noticePopup {
+    background-color: white;
+    border-radius: 20px;
+    width: 24rem;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+    z-index: 100;
+}
+
+.noticePopup > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.noticePopup > div > p:last-child {
+    font-size: 0.9rem;
+    color: #757575;
+    font-weight: 500;
+}
+
+.noticePopup button {
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    border: 1px solid #BDBDBD;
+    background-color: white;
+    color: #616161;
+    font-weight: 500;
+}
+
+.noticePopup > div > p:first-child span {
+    color: var(--primary-color);
+}
+
+.noticePopup img {
+    width: 7rem;
+}
+
+.noticePopup > div:last-child {
+    display: flex;
+    flex-direction: row;
+}
+
+.noticePopup .cancelButton {
+    border: solid 1px var(--error-color);
+    color: var(--error-color);
+}

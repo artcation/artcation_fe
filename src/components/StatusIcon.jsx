@@ -4,7 +4,7 @@ export default function StatusIcon({text}) {
     const styles = {
         'CONFIRMED': { message: '확정', color: 'white', background: 'var(--primary-color)', borderColor: 'var(--primary-color)' },
         'SELECTED': { message: '선정', color: 'white', background: '#956BD8', borderColor: '#956BD8' },
-        'APPLIED': { message: '지원 완료', color: 'var(--primary-color)', background: 'white', borderColor: 'var(--primary-color)' },
+        'APPLIED': { message: '지원완료', color: 'var(--primary-color)', background: 'white', borderColor: 'var(--primary-color)' },
         'RECRUITING': { message: '모집중', color: 'var(--primary-color)', background: 'var(--sub-color)', borderColor: 'var(--primary-color)' },
         'CANCELED': { message: '취소', color: 'var(--error-color)', background: 'white', borderColor: 'var(--error-color)' },
         'REJECTED': { message: '미선정', color: 'white', background: '#757575', borderColor: '#757575' },
@@ -14,7 +14,7 @@ export default function StatusIcon({text}) {
 
     return (
         <div style={styles[text]} className='statusIcon'>
-            {styles[text].message}
+            {styles[text]?.message}
         </div>
     )
 }
