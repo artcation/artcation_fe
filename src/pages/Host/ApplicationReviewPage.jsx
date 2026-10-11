@@ -143,16 +143,19 @@ export default function ApplicationReviewPage() {
                 </div>
                 <div className="reviewMain">
                     <h2>지원자 심사 및 결과 처리</h2>
-                    <div className="reviewFilters">
-                        {FILTERS.map((item) => (
-                            <button
-                                key={item.label}
-                                className={filter == item.value ? 'filterActive' : ''}
-                                onClick={() => {setFilter(item.value); setCurrentPage(1);}}
-                            >
-                                {item.label}
-                            </button>
-                        ))}
+                    <div className="reviewToolbar">
+                        <div className="reviewFilters">
+                            {FILTERS.map((item) => (
+                                <button
+                                    key={item.label}
+                                    className={filter == item.value ? 'filterActive' : ''}
+                                    onClick={() => {setFilter(item.value); setCurrentPage(1);}}
+                                >
+                                    {item.label}
+                                </button>
+                            ))}
+                        </div>
+                        {summary.draftSavedAt && <p className="draftSavedAt">임시 저장일: {summary.draftSavedAt}</p>}
                     </div>
                     <div className="reviewBody">
                         <div className="applicantList">
