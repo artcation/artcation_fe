@@ -128,15 +128,6 @@ export default function PostingForm( {posting = {}}) {
                     defaultValue={posting.requestToArtist}
                 />
             </div>
-
-            <div className="postingSection">
-                <h2>첨부 자료</h2>
-                <div className="postingTextBox postingFiles">
-                    <p>PDF, DOCX, HWP, JPG, PNG 형식의 파일을 첨부해 주세요.</p>
-                    <label htmlFor="files">업로드</label>
-                    <input id="files" type="file" multiple accept=".pdf,.docx,.hwp,.jpg,.jpeg,.png" />
-                </div>
-            </div>
         </>
     )
 }

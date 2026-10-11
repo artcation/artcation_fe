@@ -109,27 +109,3 @@
 .postingRequest {
     height: 12rem;
 }
-
-.postingFiles {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    height: 7rem;
-}
-
-.postingFiles p {
-    color: #9E9E9E;
-}
-
-.postingFiles label {
-    border: 1px solid #EEEEEE;
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    color: #616161;
-    cursor: pointer;
-}
-
-.postingFiles input {
-    display: none;
-}
