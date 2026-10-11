@@ -1,0 +1,36 @@
+.postingDetailHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postingDetailHeader > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 1.125rem;
+}
+
+.postingDetailHeader > div:last-child {
+    display: flex;
+    gap: 0.56rem;
+}
+
+.postingDetailHeader button{
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.postingCancelBtn {
+    border: 1px solid var(--error-color);
+    background: white;
+    color: var(--error-color);
+}
+
+.postingCloseBtn {
+    border: 1px solid var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+}
