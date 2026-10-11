@@ -29,12 +29,8 @@ export default function LoginPage() {
         }
     }
 
-    function handlePwVisibility(type) {
-        if (type == 'pw') {
-            pwVisibility ? setPwVisibility(false) : setPwVisibility(true)
-        } else {
-            pwCheckVisibility ? setPwCheckVisibility(false) : setPwCheckVisibility(true);
-        }
+    function handlePwVisibility() {
+        pwVisibility ? setPwVisibility(false) : setPwVisibility(true);
     }
 
     return (
@@ -47,7 +43,7 @@ export default function LoginPage() {
                 <input value={id} onChange={(e) => setId(e.target.value)} type="text" placeholder="아이디" />
                 <div>
                     <input placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)} value={password} className="pwInput" id="password" type={pwVisibility ? 'text' : 'password'} required />
-                    <button style={{ backgroundImage: `url(${pwVisibility ? icon_visible : icon_invisible})` }} onClick={() => handlePwVisibility('pw')} className="visibilityToggle"></button>
+                    <button style={{ backgroundImage: `url(${pwVisibility ? icon_visible : icon_invisible})` }} onClick={handlePwVisibility} className="visibilityToggle"></button>
                 </div>
                 {
                     errors ?

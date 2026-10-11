@@ -86,7 +86,6 @@ export default function RegisterPage() {
     }
     
     async function handleRegister() {
-        // 상황별 오류 빼놓기 - 백 수정 후 다시 확인
         try {
             const response = await axiosInstance.post(
                 '/auth/signup',
@@ -104,14 +103,18 @@ export default function RegisterPage() {
             console.log(error.response.data);
             const newMessages = {};
             for (let err of error.response.data.errors) {
-                if (err.message.includes('loginId')) {
-                    newMessages.idError = '* 아이디는 4-20자의 영문, 숫자, 언더스코어 조합으로 입력해주세요.';
+                if (err.code == 'LOGIN_ID_DUPLICATED') {
                     newMessages.idError = '* 이미 사용 중인 아이디입니다.';
                 }
-                if (err.message.includes('password')) {
-                    newMessages.pwError = '* 비밀번호는 8-20자의 영문+숫자+특수문자 조합으로 설정해주세요.';
+                if (err.code == 'INVALID_INPUT') {
+                    if (err.message.includes('loginId')) {
+                        newMessages.idError = '* 아이디는 4-20자의 영문, 숫자, 언더스코어 조합으로 입력해주세요.';
+                    }
+                    if (err.message.includes('password')) {
+                        newMessages.pwError = '* 비밀번호는 8-20자의 영문+숫자+특수문자 조합으로 설정해주세요.';
+                    }
                 }
-                if (err.message.includes('email')) {
+                if (err.code == 'EMAIL_VERIFICATION_EXPIRED') {
                     newMessages.emailError = '* 이메일 인증이 만료되었습니다.';
                 }
             }
