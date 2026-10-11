@@ -42,7 +42,7 @@ export default function ExplorePage() {
     async function handleGetPerformances(pageNumber=1) {
         try {
             const response = await axiosInstance.get(
-                '/performances', {
+                '/recruitments', {
                     params: {
                         page: pageNumber,
                         date: filters.dateFrom ?? null,
@@ -55,8 +55,7 @@ export default function ExplorePage() {
                 }
             )
             setPerformances(response.data.data.content);
-            setTotalPages(response.data.data.totalPages)
-            console.log(response.data.data);
+            setTotalPages(response.data.data.totalPages);
         } catch (error) {
             console.log(error);
         }
@@ -162,7 +161,7 @@ export default function ExplorePage() {
                                             <div className='resultStatus'>
                                                 <StatusIcon text={p.status} />
                                                 <div>{p.title}</div>
-                                                <div>{p.address} · {p.hostName}</div>
+                                                <div>{p.region} · {p.hostName}</div>
                                             </div>
                                         </td>
                                         <td>{GENRES[p.genre]}</td>

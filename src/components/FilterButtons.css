@@ -1,0 +1,33 @@
+.filterButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.filterButtons button {
+    width: 14rem;
+    border: 2px solid #757575;
+    background-color: white;
+    border-radius: 14px;
+    padding: 1.3rem;
+    color: #616161;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.filterButtons button > div:first-child {
+    font-size: 0.8rem;
+}
+
+.filterButtons button > div:last-child {
+    font-size: 1.8rem;
+}
+
+.filterButtons .selectedFilter {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}

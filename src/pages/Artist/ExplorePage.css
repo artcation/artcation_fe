@@ -146,28 +146,6 @@
     background-color: transparent;
 }
 
-.searchContainer table {
-    width: 100%;
-    border-top: 1.5px solid #757575;
-    border-collapse: collapse;
-}
-
-.searchContainer thead {
-    background-color: #F5F5F5;
-    color: #757575;
-}
-
-.searchContainer th {
-    padding: 1rem;
-    font-size: 0.9rem;
-}
-
-.searchContainer td {
-    text-align: center;
-    padding: 1.5rem;
-    color: #757575;
-}
-
 
 .resultStatus {
     display: grid;
@@ -216,4 +194,28 @@
 .resultDueDate > div:first-child {
     color: var(--primary-color);
     font-size: 1.1rem;
+}
+
+.searchContainer th:nth-child(1) {
+    width: 15%;
+}
+
+.searchContainer th:nth-child(2) {
+    width: 35%;
+}
+
+.searchContainer th:nth-child(3) {
+    width: 10%;
+}
+
+.searchContainer th:nth-child(4) {
+    width: 10%;
+}
+
+.searchContainer th:nth-child(5) {
+    width: 15%;
+}
+
+.searchContainer th:nth-child(6) {
+    width: 15%;
 }
