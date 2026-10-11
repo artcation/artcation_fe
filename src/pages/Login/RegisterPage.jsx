@@ -28,6 +28,7 @@ export default function RegisterPage() {
     const allChecked = id && emailAtCode && codeChecked && pw && pw == pwCheck;
     const navigate = useNavigate();
     const [popupVisibility, setPopupVisibility] = useState(false);
+    const pwCheckError = pwCheck && pw != pwCheck;
 
     async function handleEmailCodeGet() {
         try {
@@ -38,7 +39,6 @@ export default function RegisterPage() {
                     email: email
                 }
             )
-            console.log(response);
             setCodeSent(true);
             setTimerKey(timerKey + 1);
             setMessages({...messages, emailError: ''});
@@ -84,19 +84,9 @@ export default function RegisterPage() {
             pwCheckVisibility ? setPwCheckVisibility(false) : setPwCheckVisibility(true);
         }
     }
-
-    function handlePwCheck(e) {
-        setPwCheck(e.target.value);
-        if (pw != e.target.value) {
-            setMessages({...messages, pwCheckError: '* 비밀번호가 일치하지 않습니다.'});
-        } else {
-            setMessages({...messages, pwCheckError: ''});
-        }
-    }
-
+    
     async function handleRegister() {
         // 상황별 오류 빼놓기 - 백 수정 후 다시 확인
-        // 가입 완료 시 팝업
         try {
             const response = await axiosInstance.post(
                 '/auth/signup',
@@ -112,19 +102,20 @@ export default function RegisterPage() {
             setPopupVisibility(true);
         } catch (error) {
             console.log(error.response.data);
-            // setMessages({});
-            if (error.response.data.code == 'INVALID_INPUT') {
-                if (error.response.data.message.includes('loginId')) {
-                    setMessages({...messages, idError: '* 아이디는 4-20자의 영문, 숫자, 언더스코어 조합으로 입력해주세요.'});
+            const newMessages = {};
+            for (let err of error.response.data.errors) {
+                if (err.message.includes('loginId')) {
+                    newMessages.idError = '* 아이디는 4-20자의 영문, 숫자, 언더스코어 조합으로 입력해주세요.';
+                    newMessages.idError = '* 이미 사용 중인 아이디입니다.';
                 }
-                if (error.response.data.message.includes('password')) {
-                    setMessages({...messages, pwError: '* 비밀번호는 8-20자의 영문+숫자+특수문자 조합으로 설정해주세요.'});
+                if (err.message.includes('password')) {
+                    newMessages.pwError = '* 비밀번호는 8-20자의 영문+숫자+특수문자 조합으로 설정해주세요.';
                 }
-            } else if (error.response.data.code == 'LOGIN_ID_DUPLICATED') {
-                setMessages({...messages, idError: '* 이미 사용 중인 아이디입니다.'});
-            } else if (error.response.data.code == 'EMAIL_VERIFICATION_EXPIRED') {
-                setMessages({...messages, emailError: '* 이메일 인증이 만료되었습니다.'});
+                if (err.message.includes('email')) {
+                    newMessages.emailError = '* 이메일 인증이 만료되었습니다.';
+                }
             }
+            setMessages(newMessages);
         }
     }
 
@@ -182,10 +173,12 @@ export default function RegisterPage() {
                 <div>
                     <label htmlFor="passwordCheck">비밀번호 확인<span>*</span></label>
                     <div>
-                        <input onChange={handlePwCheck} value={pwCheck} className="pwInput" id="passwordCheck" type={pwCheckVisibility ? 'text' : 'password'} required />
+                        <input onChange={(e) => setPwCheck(e.target.value)} value={pwCheck} className="pwInput" id="passwordCheck" type={pwCheckVisibility ? 'text' : 'password'} required />
                         <button style={{ backgroundImage: `url(${pwCheckVisibility ? icon_visible : icon_invisible})` }} onClick={() => handlePwVisibility('pwCheck')} className="visibilityToggle"></button>
                     </div>
-                    <p>{messages.pwCheckError}</p>
+                    {
+                        pwCheckError ? <p>* 비밀번호가 일치하지 않습니다.</p> : ''
+                    }
                 </div>
             </div>
             <div className="registerFooter">

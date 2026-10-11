@@ -76,7 +76,7 @@
     width: 100%;
 }
 
-.registerInputs .visibilityToggle {
+.visibilityToggle {
     position: absolute;
     right: 1rem;
     align-self: center;
