@@ -66,9 +66,9 @@ export default function MyApplicationPage() {
     }, [])
 
 
-    if (applicationInfo?.status == 'CONFIRMED') {
+    if (applicationInfo?.status == 'CONFIRMED' || applicationInfo?.status == 'SELECTED') {
         return (
-            <ResultPage recruitmentInfo={recruitmentInfo} applicationId={applicationId} />
+            <ResultPage applicationId={applicationId} />
         )
     }
 

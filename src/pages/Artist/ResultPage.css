@@ -21,7 +21,7 @@
 
 .congratsContainer > div:last-child {
     text-align: end;
-    min-height: 0.8rem;
+    min-height: 0.9rem;
 }
 
 .resultPage > .congratsContainer > div:nth-child(2) {
