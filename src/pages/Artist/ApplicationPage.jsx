@@ -48,7 +48,7 @@ export default function ApplicationPage() {
     return (
         <>
             <div className="applicationPage">
-                <NoticePopup rightButtonText={"지원 현황 확인"} mainText={<><span>지원서 제출</span> 완료</>} subText={"지원서는 ‘내 지원 현황’에서 확인할 수 있습니다."} image={character_applied} visibility={popupVisibility} />
+                <NoticePopup rightButtonText={"지원 현황 확인"} mainText={<><span>지원서 제출</span> 완료</>} subText={"지원서는 ‘내 지원 현황’에서 확인할 수 있습니다."} image={character_applied} visibility={popupVisibility} type={'sub'} />
                 <h1>공연 지원서 작성</h1>
                 <ul>
                     <li>공연에 제출할 포트폴리오와 지원 내용을 작성해 주세요.</li>

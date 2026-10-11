@@ -12,7 +12,7 @@
     color: white;
 }
 
-.subButton {
+.subButton, .noticePopup .subButton {
     border: 1.5px solid var(--primary-color);
     background: var(--sub-color);
     color: var(--primary-color);
