@@ -92,7 +92,7 @@ export default function PostingPage() {
                 </div>
             </div>
             <div className="bottomBar">
-                <BottomButton onClick={() => navigate(`/apply/${recruitmentId}`)} text={postingInfo.status == 'RECRUITING' ? `지원하기 (D-${postingInfo?.daysUntilDeadline})` : '모집 마감'} type={'primary'} />
+                <BottomButton onClick={() => navigate(`/apply/${recruitmentId}`)} text={postingInfo?.availableActions?.includes('APPLY') ? `지원하기 (D-${postingInfo?.daysUntilDeadline == 0 ? 'DAY' : postingInfo?.daysUntilDeadline})` : (postingInfo?.availableActions?.includes('APPLIED') ? '지원 완료' : '모집 마감')} type={postingInfo?.availableActions?.includes('APPLY') ? 'primary' : 'inactive'} />
             </div>
         </>
     )
