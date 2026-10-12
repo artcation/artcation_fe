@@ -93,7 +93,7 @@ export default function MyPostingsPage() {
                         <thead>
                             <tr>
                                 <th scope="col">공연명</th>
-                                <th scope="col">공연 일시</th>
+                                <th scope="col">공연일시</th>
                                 <th scope="col">마감일</th>
                                 <th scope="col" colSpan={3}>지원 정보</th>
                             </tr>

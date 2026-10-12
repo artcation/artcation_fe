@@ -1,7 +1,14 @@
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { HOST_POSTINGS } from "../routes"
+import { useEffect } from "react"
 
 export default function MainPage() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        navigate('/explore');
+    }, []);
+
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <div>
