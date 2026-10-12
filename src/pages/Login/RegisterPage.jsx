@@ -33,7 +33,7 @@ export default function RegisterPage() {
     async function handleEmailCodeGet() {
         try {
             setEmailAtCode(email);
-            const response = await axiosInstance.post(
+            await axiosInstance.post(
                 '/auth/send-code',
                 {
                     email: email
@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
     async function handleCodeCheck() {
         try {
-            const response = await axiosInstance.post(
+            await axiosInstance.post(
                 '/auth/verify-code',
                 {
                     email: emailAtCode,
@@ -87,7 +87,7 @@ export default function RegisterPage() {
     
     async function handleRegister() {
         try {
-            const response = await axiosInstance.post(
+            await axiosInstance.post(
                 '/auth/signup',
                 {
                     loginId: id,

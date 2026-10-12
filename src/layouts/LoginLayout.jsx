@@ -15,7 +15,7 @@ export default function LoginLayout() {
         if (isLoggedIn) {
             navigate('/')
         }
-    }, [isLoggedIn])
+    }, [isLoggedIn, navigate])
 
     function handleLogo() {
         navigate('/');

@@ -14,13 +14,12 @@ export default function FindPage() {
 
     async function handleFind() {
         try {
-            let response;
             if (type == 'id') {
-                    response = await axiosInstance.post('/auth/find-login-id', {
+                    await axiosInstance.post('/auth/find-login-id', {
                     email: email
                 })
             } else {
-                    response = await axiosInstance.post('/auth/password-reset/request', {
+                    await axiosInstance.post('/auth/password-reset/request', {
                     email: email,
                     loginId: id
                 })

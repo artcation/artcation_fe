@@ -30,7 +30,7 @@ export default function ResetPage() {
 
     async function handleResetPw() {
         try {
-            const response = await axiosInstance.post('/auth/password-reset/confirm', {
+            await axiosInstance.post('/auth/password-reset/confirm', {
                 resetToken: token,
                 newPassword: pw
             });

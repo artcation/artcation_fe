@@ -7,7 +7,7 @@ export default function MainPage() {
 
     useEffect(() => {
         navigate('/explore');
-    }, []);
+    }, [navigate]);
 
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>

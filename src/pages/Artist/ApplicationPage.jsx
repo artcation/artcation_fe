@@ -38,7 +38,7 @@ export default function ApplicationPage() {
 
     async function handleApplicationEdit() {
         try {
-            const response = await axiosInstance.put(`/artist/applications/${applicationId}`, {
+            await axiosInstance.put(`/artist/applications/${applicationId}`, {
                 teamName: applicationInputs.teamName,
                 portfolio: applicationInputs.portfolio,
                 performancePlan: applicationInputs.performancePlan,
@@ -53,7 +53,7 @@ export default function ApplicationPage() {
 
     async function handleApplicationCancel() {
         try {
-            const response = await axiosInstance.post(`/artist/applications/${applicationId}/cancel`)
+            await axiosInstance.post(`/artist/applications/${applicationId}/cancel`)
             navigate('/applications');
         } catch (error) {
             console.log(error);

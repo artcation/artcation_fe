@@ -24,7 +24,7 @@ export default function TermsPage() {
 
     useEffect(() => {
         setChecks({ageCheck: false, termsCheck: false, privacyCheck: false, marketingCheck: false});
-    }, []);
+    }, [setChecks]);
 
     return (
         <>

@@ -34,7 +34,7 @@ export default function ApplyPage() {
 
     async function handleApplicationSubmit() {
         try {
-            const response = await axiosInstance.post(`/recruitments/${recruitmentId}/applications`, {
+            await axiosInstance.post(`/recruitments/${recruitmentId}/applications`, {
                 teamName: teamName,
                 portfolio: portfolio,
                 performancePlan: plan,

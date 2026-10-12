@@ -17,7 +17,7 @@ export default function DefaultLayout() {
 
     async function handleLogout() {
         try {
-            const response = await axiosInstance.post('/auth/logout');
+            await axiosInstance.post('/auth/logout');
             setIsLoggedIn(false);
             navigate('/login');
         } catch (error) {

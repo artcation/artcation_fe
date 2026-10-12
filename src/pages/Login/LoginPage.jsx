@@ -17,7 +17,7 @@ export default function LoginPage() {
 
     async function handleLogin() {
         try {
-            const response = await axiosInstance.post('/auth/login', {
+            await axiosInstance.post('/auth/login', {
                 loginId: id,
                 password: password
             })
@@ -25,9 +25,8 @@ export default function LoginPage() {
             const response_2 = await axiosInstance.get('/users/me');
             if (response_2.data.data.role == "ARTIST") {
                 navigate('/explore');
-            } else if (response_2.data.data.role = "HOST") {
-                // 호스트 주소 정리 후 수정
-                navigate('/');
+            } else if (response_2.data.data.role == "HOST") {
+                navigate('/postings');
             } else {
                 navigate('/');
             }

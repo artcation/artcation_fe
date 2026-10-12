@@ -21,7 +21,7 @@ export default function ResultPage({applicationId}) {
 
     async function handleConfirm() {
         try {
-            const response = await axiosInstance.post(`/artist/applications/${applicationId}/participation/confirm`);
+            await axiosInstance.post(`/artist/applications/${applicationId}/participation/confirm`);
             handleParticipateInfo();
         } catch (error) {
             console.log(error)
@@ -30,8 +30,8 @@ export default function ResultPage({applicationId}) {
 
     async function handleCancel() {
         try {
-            const response = await axiosInstance.post(`/artist/applications/${applicationId}/participation/cancel`);
-            handleApplicationGet();
+            await axiosInstance.post(`/artist/applications/${applicationId}/participation/cancel`);
+            handleParticipateInfo();
         } catch (error) {
             console.log(error)
         }
@@ -39,7 +39,7 @@ export default function ResultPage({applicationId}) {
 
     useEffect(() => {
         handleParticipateInfo();
-    }, []);
+    }, [handleParticipateInfo]);
 
     return (
         <>
